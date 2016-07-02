@@ -103,3 +103,9 @@
     }
 }
 
+#Servo
+{
+  "global": {
+    "servomotor_plugin": "platform/raspberry_pi/adafruitpwmdriver_impl"
+  }
+}
