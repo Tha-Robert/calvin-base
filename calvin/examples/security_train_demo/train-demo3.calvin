@@ -150,6 +150,8 @@ selStockholm.case_false > voidport
 
 selLund.case_true > join.token_1
 selStockholm.case_true > join.token_2
+selLund.case_true > dbgLund.token
+selStockholm.case_true > dbgStockholm.token
 
 
 # deploy
