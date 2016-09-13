@@ -1,0 +1,162 @@
+define CONTROL_URI = "control_uri"
+#define CONTROL_URI = "http://192.168.1.140:5001"
+#define SCRIPTFILE = "test1.calvin"
+define SCRIPT = "src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n"
+define APPNAME = "train_demo"
+#deploy info
+
+### Components ###
+# Components
+component CalvinDeployer(control_uri) name, script, deploy_info -> app_info {
+    controlpath: std.Constant(data=control_uri)    
+    controluri: io.FileReader()
+    deploy: calvin.CalvinDeployerA()
+    post: net.HTTPPost()
+
+    dbg1: io.Print()
+    dbg2: io.Print()
+
+    .name > deploy.name
+    .script > deploy.script
+    .deploy_info > deploy.deploy_info
+    deploy.app_info > .app_info
+
+    controlpath.token > dbg1.token
+    controluri.out > dbg2.token
+
+    controlpath.token > controluri.filename
+    controluri.out > deploy.control_uri
+
+    deploy.URL > post.URL
+    deploy.params > post.params
+    deploy.header > post.header
+    deploy.data > post.data
+
+    post.status > deploy.status
+    post.header > deploy.header
+    post.data > deploy.data
+}
+
+component CalvinMigrater(control_uri, deploy_info) app_id, key -> done {
+    controlpath: std.Constant(data=control_uri)
+    controluri: io.FileReader()
+    migrate: calvin.CalvinMigraterA(deploy_info=deploy_info)
+    post: net.HTTPPost()
+
+    .app_id > migrate.app_id
+    .key > migrate.key
+    migrate.done > .done
+
+    controlpath.token > controluri.filename
+    controluri.out > migrate.control_uri
+
+    migrate.URL > post.URL
+    migrate.params > post.params
+    migrate.header > post.header
+    migrate.data > post.data
+
+    post.status > migrate.status
+    post.header > migrate.header
+    post.data > migrate.data
+}
+
+component trainStationReqDict() -> dict {
+    keys: std.Alternate()
+    values: std.Alternate()
+    tagDict: json.Dict(n=2)
+
+   "8804522ef0" > keys.token_1
+   "src_Lund" > values.token_1
+
+   "8804832d22" > keys.token_2 
+   "src_Stockholm" > values.token_2
+
+   keys.token > tagDict.key
+   values.token > tagDict.value
+   tagDict.dict > .dict
+}
+
+
+### Actor instances ###
+#script file
+file: std.Constant(data=SCRIPT)
+#deploy info
+deploy_info: std.Constant(data=
+                        {"requirements":
+                            {"src":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Stockholm_RFID"}]},
+                                 "type": "+"
+                                 }],
+                            "snk":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Stockholm_RFID"}]},
+                                 "type": "+"
+                                 }]
+                            }
+                        })
+
+# name
+name: std.Constant(data=APPNAME)
+
+#rt control
+deploy: CalvinDeployer(control_uri=CONTROL_URI)
+migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info={"src_Lund":
+                        {"requirements":
+                            {"src":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Lund"}]},
+                                 "type": "+"
+                                 }]
+                            }
+                        },
+                    "src_Stockholm":
+                        {"requirements":
+                            {"src":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Stockholm"}]},
+                                 "type": "+"
+                                 }]
+                            }
+                        }
+                    })
+
+
+### Structure ###
+dbg1: io.Print()
+dbg4: io.Print()
+
+dbg: io.Print()
+jsonStation: json.GetValue()
+dict: trainStationReqDict()
+
+#RFID stuff
+nothing : std.Void()
+reader : sensor.RFIDReader()
+json: json.GetValue()
+
+
+# deploy
+file.token > deploy.script
+name.token > deploy.name
+deploy_info.token > deploy.deploy_info
+deploy.app_info > dbg1.token
+
+
+nothing.void > reader.data
+reader.data > json.container
+"cardno" > json.key
+
+
+
+
+dict.dict > jsonStation.container
+json.value > jsonStation.key
+jsonStation.value > dbg.token
+
+
+# migrate
+deploy.app_info > migrate.app_id
+migrate.done > dbg4.token
+jsonStation.value > migrate.key
+

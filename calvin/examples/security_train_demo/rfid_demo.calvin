@@ -1,0 +1,13 @@
+
+#RFID stuff
+nothing : std.Void()
+reader : sensor.RFIDReader()
+dbg: io.Print()
+
+
+nothing.void > reader.data
+reader.data > dbg.token 
+
+
+
+

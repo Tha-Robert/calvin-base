@@ -1,0 +1,27 @@
+define CONTROL_URI = "control_uri"
+define SCRIPT = "src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n"
+define APPNAME = "train_demo"
+#deploy info
+
+
+
+
+
+### Structure ###
+dbgLund: io.Print()
+dbgStockholm: io.Print()
+
+#RFID stuff
+nothing : std.Void()
+readerLund : sensor.RFIDReader()
+readerStockholm : sensor.RFIDReader()
+constantLund: std.Constantify(constant="src_Lund")
+constantStockholm: std.Constantify(constant="src_Stockholm")
+
+nothing.void > readerLund.data
+nothing.void > readerStockholm.data
+readerLund.data > constantLund.in
+readerStockholm.data > constantStockholm.in
+constantStockholm.out > dbgStockholm.token
+constantLund.out > dbgLund.token
+

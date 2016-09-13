@@ -1,0 +1,150 @@
+#deploy info
+define CONTROL_URI = "control_uri"
+define SCRIPT = "src : std.CountTimer(sleep=10)\nsnk : io.StandardOut()\nsensor:sensor.Environmental()\nsrc.integer >sensor.trigger\nsensor.data > snk.token\n"
+#define SCRIPTFILE="train.calvin"
+define APPNAME = "train_demo"
+#deploy info
+
+### Components ###
+# Components
+component CalvinDeployer(control_uri) name, script, deploy_info -> app_info {
+    controlpath: std.Constant(data=control_uri)    
+    controluri: io.FileReader()
+    deploy: calvin.CalvinDeployerA()
+    post: net.HTTPPost()
+
+    dbg1: io.Print()
+    dbg2: io.Print()
+
+    .name > deploy.name
+    .script > deploy.script
+    .deploy_info > deploy.deploy_info
+    deploy.app_info > .app_info
+
+    controlpath.token > dbg1.token
+    controluri.out > dbg2.token
+
+    controlpath.token > controluri.filename
+    controluri.out > deploy.control_uri
+
+    deploy.URL > post.URL
+    deploy.params > post.params
+    deploy.header > post.header
+    deploy.data > post.data
+
+    post.status > deploy.status
+    post.header > deploy.header
+    post.data > deploy.data
+}
+
+component CalvinMigrater(control_uri, deploy_info) app_id, key -> done {
+    controlpath: std.Constant(data=control_uri)
+    controluri: io.FileReader()
+    migrate: calvin.CalvinMigraterA(deploy_info=deploy_info)
+    post: net.HTTPPost()
+
+    .app_id > migrate.app_id
+    .key > migrate.key
+    migrate.done > .done
+
+    controlpath.token > controluri.filename
+    controluri.out > migrate.control_uri
+
+    migrate.URL > post.URL
+    migrate.params > post.params
+    migrate.header > post.header
+    migrate.data > post.data
+
+    post.status > migrate.status
+    post.header > migrate.header
+    post.data > migrate.data
+}
+
+### Actor instances ###
+#script file
+file: std.Constant(data=SCRIPT)
+
+#deploy info
+deploy_info: std.Constant(data=
+                        {"requirements":
+                            {"src":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Lund_PROXY_RFID"}]},
+                                 "type": "+"
+                                 }],
+                            {"sensor":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Lund_SENSEHAT"}]},
+                                 "type": "+"
+                                 }],
+                            "snk":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Lund_PROXY_RFID"}]},
+                                 "type": "+"
+                                 }]
+                            }
+                        })
+
+# name
+name: std.Constant(data=APPNAME)
+
+#rt control
+deploy: CalvinDeployer(control_uri=CONTROL_URI)
+migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info={"snk_Lund":
+                        {"requirements":
+                            {"snk":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Lund_PROXY_RFID"}]},
+                                 "type": "+"
+                                 }]
+                            }
+                        },
+                    "snk_Stockholm":
+                        {"requirements":
+                            {"snk":
+                                [{"op": "node_attr_match",
+                                 "kwargs": {"index": ["node_name", {"name": "Stockholm_RFID"}]},
+                                 "type": "+"
+                                 }]
+                            }
+                        }
+                    })
+
+
+
+### Structure ###
+dbgLund: io.Print()
+dbgStockholm: io.Print()
+dbgDeploy: io.Print()
+dbgMigrate: io.Print()
+
+### Display ###
+#RFID stuff
+nothing : std.Void()
+readerLund : sensor.RFIDReader()
+readerStockholm : sensor.RFIDReader()
+constantLund: std.Constantify(constant="snk_Lund")
+constantStockholm: std.Constantify(constant="snk_Stockholm")
+station: std.Join()
+
+nothing.void > readerLund.data
+nothing.void > readerStockholm.data
+readerLund.data > constantLund.in
+readerStockholm.data > constantStockholm.in
+constantLund.out > dbgLund.token
+constantStockholm.out > dbgStockholm.token
+constantLund.out > station.token_1
+constantStockholm.out > station.token_2
+
+
+# deploy
+file.token > deploy.script
+name.token > deploy.name
+deploy_info.token > deploy.deploy_info
+deploy.app_info > dbgDeploy.token
+
+# migrate
+deploy.app_info > migrate.app_id
+migrate.done > dbgMigrate.token
+station.token > migrate.key
+

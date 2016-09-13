@@ -1,0 +1,2 @@
+src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n
+
