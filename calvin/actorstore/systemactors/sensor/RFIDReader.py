@@ -79,7 +79,7 @@ class RFIDReader(Actor):
             else :
                 self._state = "reset"
         else :
-            self.timeout_timer = self['timer'].once(0.5)
+            self.timeout_timer = self['timer'].once(0.05)
         return ActionResult()
         
     @condition()
