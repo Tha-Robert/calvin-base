@@ -29,24 +29,30 @@ _MODULES = {'camera': ['Camera'],
             'image': ['Image'],
             'mediaplayer': ['MediaPlayer']}
 
-_FW_MODULES = []
-__all__ = []
-
-if not _FW_MODULES:
-    DIRNAME = os.path.dirname(__file__)
-    DIRS = os.listdir(DIRNAME)
-    for i, fw_module in enumerate(DIRS):
-        if "impl" in fw_module:
-            _FW_MODULES.append(fw_module)
-
 _CONF = calvinconfig.get()
 _FW_PATH = _CONF.get(None, 'media_framework')
 
+if _FW_PATH is not None:
+    # Spec
+    _MODULES = {'camera': ['Camera'],
+            'image': ['Image'],
+            'mediaplayer': ['MediaPlayer']}
 
-if _FW_PATH not in _FW_MODULES:
-    raise Exception("No framework '%s' with that name, avalible ones are '%s'" % (_FW_PATH, _FW_MODULES))
+    _FW_MODULES = []
+    __all__ = []
 
-for module, _classes in _MODULES.items():
-    module_obj = __import__("%s.%s" % (_FW_PATH, module), globals=globals(), fromlist=[''])
-    globals()[module] = module_obj
-    __all__.append(module_obj)
+    if not _FW_MODULES:
+        DIRNAME = os.path.dirname(__file__) + "/"
+        for fw_module, _, _ in os.walk(DIRNAME):
+	    print "fw_module", fw_module
+            if "impl" in fw_module:
+                _FW_MODULES.append(fw_module.replace(DIRNAME, ""))
+
+        if _FW_PATH not in _FW_MODULES:
+            raise Exception("No framework '%s' with that name, avalible ones are '%s'" % (_FW_PATH, _FW_MODULES))
+
+        for module, _classes in _MODULES.items():
+            import_path = _FW_PATH.replace("/", ".")
+            module_obj = __import__("%s.%s" % (import_path, module), globals=globals(), fromlist=[''])
+            globals()[module] = module_obj
+            __all__.append(module_obj)

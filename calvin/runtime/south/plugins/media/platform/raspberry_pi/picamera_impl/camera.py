@@ -21,6 +21,11 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 
+from io import BytesIO
+
+width = 100
+height = 100
+
 class Camera(object):
 
     """
@@ -31,11 +36,12 @@ class Camera(object):
         """
         Initialize camera
         """
-        self.cap = cv2.VideoCapture(device)
-        self.cap.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, width)
-        self.cap.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, height)
+	print "initialize picamera"
+#        self.cap = cv2.VideoCapture(device)
+#        self.cap.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, width)
+#        self.cap.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, height)
 	self.camera = PiCamera()
-	self.rawCapture = PiRGBArray(camera)
+#	self.camera.resolution = (width, height)
 	#allow the camera to warm up
 	time.sleep(0.1)
 
@@ -44,13 +50,20 @@ class Camera(object):
         Captures an image
         returns: Image as jpeg encoded binary string, None if no frame
         """
-	self.camera.capture(self.rawCapture, format="bgr")
-        frame = self.rawCapture.array
-	if frame:
-            ret, jpeg = cv2.imencode(".jpg", frame)
-            if ret:
-                data = numpy.array(jpeg)
-                return data.tostring()
+	print "Hakan, taking picture"
+	rawCapture = PiRGBArray(self.camera)
+	self.camera.capture(rawCapture, format="bgr")
+        frame = rawCapture.array
+        encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),50]
+        ret, jpeg = cv2.imencode(".jpg", frame, encode_param)
+        if ret:
+            data = numpy.array(jpeg)
+            return data.tostring()
+
+#        my_stream = BytesIO()
+#	self.camera.capture(my_stream, 'jpeg')
+#        data = numpy.array(my_stream)
+#        return data.tostring()
 
     def close(self):
         """
