@@ -20,11 +20,12 @@ import numpy
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
-
+import base64
+from PIL import Image
 from io import BytesIO
 
-width = 100
-height = 100
+width = 640
+height = 320
 
 class Camera(object):
 
@@ -37,11 +38,8 @@ class Camera(object):
         Initialize camera
         """
 	print "initialize picamera"
-#        self.cap = cv2.VideoCapture(device)
-#        self.cap.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, width)
-#        self.cap.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, height)
 	self.camera = PiCamera()
-#	self.camera.resolution = (width, height)
+	self.camera.resolution = (width, height)
 	#allow the camera to warm up
 	time.sleep(0.1)
 
@@ -55,18 +53,13 @@ class Camera(object):
 	self.camera.capture(rawCapture, format="bgr")
         frame = rawCapture.array
         encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),50]
-        ret, jpeg = cv2.imencode(".jpg", frame, encode_param)
-        if ret:
-            data = numpy.array(jpeg)
-            return data.tostring()
+        ret, jpeg = cv2.imencode(".jpeg", frame, encode_param)
+	return base64.b64encode(jpeg)
 
-#        my_stream = BytesIO()
-#	self.camera.capture(my_stream, 'jpeg')
-#        data = numpy.array(my_stream)
-#        return data.tostring()
+  
 
     def close(self):
         """
         Uninitialize camera
         """
-        self.cap.release()
+        self.camera.close()

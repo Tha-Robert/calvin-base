@@ -36,6 +36,7 @@ if _FW_PATH is not None:
     if not _FW_MODULES:
         DIRNAME = os.path.dirname(__file__) + "/"
         for fw_module, _, _ in os.walk(DIRNAME):
+	    print "fw_module", fw_module
             if "impl" in fw_module:
                 _FW_MODULES.append(fw_module.replace(DIRNAME, ""))
 
