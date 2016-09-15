@@ -1,12 +1,10 @@
 #deploy info
 define CONTROL_URI = "control_uri"
-define SCRIPT = "src : std.CountTimer(sleep=10)\nsensor:sensor.Environmental()\ndisplay : io.Display()\nsrc.integer > sensor.trigger\nsensor.data > display.text\n"
-#define SCRIPTFILE="train.calvin"
+define SCRIPT = "src : std.CountTimer(sleep=10)\nsensor : sensor.Environmental()\ndisplay : io.Display()\nsrc.integer > sensor.trigger\nsensor.data > display.text\n"
 define APPNAME = "train_demo"
 #deploy info
 
 ### Components ###
-# Components
 component CalvinDeployer(control_uri) name, script, deploy_info -> app_info {
     controlpath: std.Constant(data=control_uri)    
     controluri: io.FileReader()
@@ -77,7 +75,7 @@ deploy_info: std.Constant(data=
                                  "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},
                                  "type": "+"
                                  }],
-                            "snk":
+                            "display":
                                 [{"op": "node_attr_match",
                                  "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},
                                  "type": "+"
