@@ -109,8 +109,6 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info={"snk_Lund":
 
 ### Structure ###
 dbgLund: io.Print()
-dbgLund1: io.Print()
-dbgLund2: io.Print()
 dbgStockholm: io.Print()
 dbgDeploy: io.Print()
 dbgMigrate: io.Print()
@@ -143,12 +141,9 @@ readerLund.data > jsonLund.container
 dataConst.token > jsonLund.key
 RFIDConst.token > compareLund.a
 jsonLund.value > compareLund.b
-jsonLund.value > dbgLund1.token
 compareLund.result > selLund.select
 snkLundConst.token > selLund.data
 selLund.case_false > sinkLund.void
-selLund.case_false > dbgLund2.token
-
 
 nothing.void > readerStockholm.data
 readerStockholm.data > jsonStockholm.container

@@ -1,6 +1,6 @@
 #deploy info
 define CONTROL_URI = "control_uri"
-define SCRIPT = "src : std.CountTimer(sleep=10)\nsnk : io.StandardOut()\nsensor:sensor.Environmental()\nsrc.integer >sensor.trigger\nsensor.data > snk.token\n"
+define SCRIPT = "src : std.CountTimer(sleep=10)\nsensor:sensor.Environmental()\ndisplay : io.Display()\nsrc.integer > sensor.trigger\nsensor.data > display.text\n"
 #define SCRIPTFILE="train.calvin"
 define APPNAME = "train_demo"
 #deploy info
@@ -69,7 +69,7 @@ deploy_info: std.Constant(data=
                         {"requirements":
                             {"src":
                                 [{"op": "node_attr_match",
-                                 "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
+                                 "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},
                                  "type": "+"
                                  }],
                             {"sensor":
@@ -79,7 +79,7 @@ deploy_info: std.Constant(data=
                                  }],
                             "snk":
                                 [{"op": "node_attr_match",
-                                 "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
+                                 "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},
                                  "type": "+"
                                  }]
                             }
@@ -92,18 +92,18 @@ name: std.Constant(data=APPNAME)
 deploy: CalvinDeployer(control_uri=CONTROL_URI)
 migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info={"snk_Lund":
                         {"requirements":
-                            {"snk":
+                            {"display":
                                 [{"op": "node_attr_match",
-                                 "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
+                                 "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},
                                  "type": "+"
                                  }]
                             }
                         },
                     "snk_Stockholm":
                         {"requirements":
-                            {"snk":
+                            {"display":
                                 [{"op": "node_attr_match",
-                                 "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                                 "kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]},
                                  "type": "+"
                                  }]
                             }
@@ -121,20 +121,48 @@ dbgMigrate: io.Print()
 ### Display ###
 #RFID stuff
 nothing : std.Void()
-readerLund : sensor.RFIDReader()
-readerStockholm : sensor.RFIDReader()
-constantLund: std.Constantify(constant="snk_Lund")
-constantStockholm: std.Constantify(constant="snk_Stockholm")
-station: std.Join()
+dataConst: std.Constant(data="data", n=-1)
+RFIDConst: std.Constant(data=53072129, n=-1)
 
+readerLund : sensor.RFIDReader()
+jsonLund: json.GetValue()
+compareLund: std.Compare(op="=")
+selLund: std.Select()
+snkLundConst: std.Constant(data="snk_Lund", n=-1)
+sinkLund: std.Terminator()
+
+readerStockholm : sensor.RFIDReader()
+jsonStockholm: json.GetValue()
+compareStockholm: std.Compare(op="=")
+selStockholm: std.Select()
+snkStockholmConst: std.Constant(data="snk_Stockholm", n=-1)
+sinkStockholm: std.Terminator()
+
+join: std.Join()
+
+## Connections ##
 nothing.void > readerLund.data
+readerLund.data > jsonLund.container
+dataConst.token > jsonLund.key
+RFIDConst.token > compareLund.a
+jsonLund.value > compareLund.b
+compareLund.result > selLund.select
+snkLundConst.token > selLund.data
+selLund.case_false > sinkLund.void
+
 nothing.void > readerStockholm.data
-readerLund.data > constantLund.in
-readerStockholm.data > constantStockholm.in
-constantLund.out > dbgLund.token
-constantStockholm.out > dbgStockholm.token
-constantLund.out > station.token_1
-constantStockholm.out > station.token_2
+readerStockholm.data > jsonStockholm.container
+dataConst.token > jsonStockholm.key
+RFIDConst.token > compareStockholm.a
+jsonStockholm.value > compareStockholm.b
+compareStockholm.result > selStockholm.select
+snkStockholmConst.token > selStockholm.data
+selStockholm.case_false > sinkStockholm.void
+
+selLund.case_true > join.token_1
+selStockholm.case_true > join.token_2
+selLund.case_true > dbgLund.token
+selStockholm.case_true > dbgStockholm.token
 
 
 # deploy
@@ -146,5 +174,5 @@ deploy.app_info > dbgDeploy.token
 # migrate
 deploy.app_info > migrate.app_id
 migrate.done > dbgMigrate.token
-station.token > migrate.key
+join.token > migrate.key
 

@@ -6,8 +6,6 @@
         "deploy":      	    [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
         "migrate":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
         "dbgLund":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "dbgLund1":         [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "dbgLund2":         [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
         "dbgStockholm":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
         "dbgDeploy":        [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
         "dbgMigrate":       [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
