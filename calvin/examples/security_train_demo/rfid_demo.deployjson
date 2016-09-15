@@ -1,22 +1,14 @@
 {
     "requirements": {
-        "nothing":[
-	{
-		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
-                "type":"+"
-	}],
-        "reader":[
-	{
-		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
-                "type":"+"
-	}],
-        "dbg":[
-	{
-		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
-                "type":"+"
-	}]
+        "dbgLund":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "nothing":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "readerLund":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "jsonLund":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "compareLund":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "selLund":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "dataConst":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "messageConst":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "RFIDConst":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "sink":		[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}]
     }
 }

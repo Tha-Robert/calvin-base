@@ -134,7 +134,7 @@ dict: trainStationReqDict()
 nothing : std.Void()
 reader : sensor.RFIDReader()
 json: json.GetValue()
-
+cardnoConst: std.Constant(data="cardno", n=-1)
 
 # deploy
 file.token > deploy.script
@@ -145,7 +145,7 @@ deploy.app_info > dbg1.token
 
 nothing.void > reader.data
 reader.data > json.container
-"cardno" > json.key
+cardnoConst.token > json.key
 
 
 

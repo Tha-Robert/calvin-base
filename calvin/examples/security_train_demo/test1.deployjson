@@ -1,0 +1,6 @@
+{
+    "requirements": {
+        "src":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
+        "snk":[	{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_RFID"}]},"type":"+"}]
+    }
+}

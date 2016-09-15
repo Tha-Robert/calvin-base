@@ -6,6 +6,12 @@
                 "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
                 "type":"+"
 	}],
+        "const":[
+	{
+		"op": "node_attr_match", 
+                "kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]},
+                "type":"+"
+	}],
         "camera":[
 	{
 		"op": "node_attr_match", 

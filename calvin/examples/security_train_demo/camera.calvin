@@ -2,7 +2,8 @@
 trigger : std.RecTimer(delay=1)
 camera : media.Camera()
 screen : media.ImageRenderer()
+const: std.Constant(data=1, n=-1)
 
-1 > trigger.token
+const.token > trigger.token
 trigger.token  > camera.trigger
 camera.image > screen.image

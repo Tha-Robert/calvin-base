@@ -109,6 +109,8 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info={"snk_Lund":
 
 ### Structure ###
 dbgLund: io.Print()
+dbgLund1: io.Print()
+dbgLund2: io.Print()
 dbgStockholm: io.Print()
 dbgDeploy: io.Print()
 dbgMigrate: io.Print()
@@ -116,37 +118,46 @@ dbgMigrate: io.Print()
 ### Display ###
 #RFID stuff
 nothing : std.Void()
+dataConst: std.Constant(data="data", n=-1)
+RFIDConst: std.Constant(data=53072129, n=-1)
 
 readerLund : sensor.RFIDReader()
 jsonLund: json.GetValue()
 compareLund: std.Compare(op="=")
 selLund: std.Select()
+snkLundConst: std.Constant(data="snk_Lund", n=-1)
+sinkLund: std.Terminator()
 
 readerStockholm : sensor.RFIDReader()
 jsonStockholm: json.GetValue()
 compareStockholm: std.Compare(op="=")
 selStockholm: std.Select()
+snkStockholmConst: std.Constant(data="snk_Stockholm", n=-1)
+sinkStockholm: std.Terminator()
 
 join: std.Join()
 
+## Connections ##
 nothing.void > readerLund.data
 readerLund.data > jsonLund.container
-"data" > jsonLund.key
-53072129 > compareLund.a
+dataConst.token > jsonLund.key
+RFIDConst.token > compareLund.a
 jsonLund.value > compareLund.b
+jsonLund.value > dbgLund1.token
 compareLund.result > selLund.select
-"snk_Lund" > selLund.data
-selLund.case_false > voidport
+snkLundConst.token > selLund.data
+selLund.case_false > sinkLund.void
+selLund.case_false > dbgLund2.token
 
 
 nothing.void > readerStockholm.data
 readerStockholm.data > jsonStockholm.container
-"data" > jsonStockholm.key
-53072129 > compareStockholm.a
+dataConst.token > jsonStockholm.key
+RFIDConst.token > compareStockholm.a
 jsonStockholm.value > compareStockholm.b
 compareStockholm.result > selStockholm.select
-"snk_Stockholm" > selStockholm.data
-selStockholm.case_false > voidport
+snkStockholmConst.token > selStockholm.data
+selStockholm.case_false > sinkStockholm.void
 
 selLund.case_true > join.token_1
 selStockholm.case_true > join.token_2
