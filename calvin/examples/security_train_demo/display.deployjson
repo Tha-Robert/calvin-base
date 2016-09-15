@@ -3,13 +3,13 @@
         "src":[
 	{
 		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "Lund_PROXY_RFID"}]},
+                "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
                 "type":"+"
 	}],
         "display":[
 	{
 		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "Stockholm_DISPLAY"}]},
+                "kwargs": {"index": ["node_name", {"name": "2_Display"}]},
                 "type":"+"
 	}]
     }

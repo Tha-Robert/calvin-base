@@ -1,6 +1,6 @@
 #deploy info
 define CONTROL_URI = "control_uri"
-define SCRIPT = "src : std.CountTimer(sleep=10)\nsnk : io.StandardOut()\nsensor:sensor.Environmental()\nsrc.integer >sensor.trigger\nsensor.data > snk.token\n"
+define SCRIPT = "src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n"
 #define SCRIPTFILE="train.calvin"
 define APPNAME = "train_demo"
 #deploy info
@@ -72,11 +72,6 @@ deploy_info: std.Constant(data=
                                  "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
                                  "type": "+"
                                  }],
-                            {"sensor":
-                                [{"op": "node_attr_match",
-                                 "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},
-                                 "type": "+"
-                                 }],
                             "snk":
                                 [{"op": "node_attr_match",
                                  "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
@@ -121,20 +116,40 @@ dbgMigrate: io.Print()
 ### Display ###
 #RFID stuff
 nothing : std.Void()
+
 readerLund : sensor.RFIDReader()
+jsonLund: json.GetValue()
+compareLund: std.Compare(op="=")
+selLund: std.Select()
+
 readerStockholm : sensor.RFIDReader()
-constantLund: std.Constantify(constant="snk_Lund")
-constantStockholm: std.Constantify(constant="snk_Stockholm")
-station: std.Join()
+jsonStockholm: json.GetValue()
+compareStockholm: std.Compare(op="=")
+selStockholm: std.Select()
+
+join: std.Join()
 
 nothing.void > readerLund.data
+readerLund.data > jsonLund.container
+"data" > jsonLund.key
+53072129 > compareLund.a
+jsonLund.value > compareLund.b
+compareLund.result > selLund.select
+"snk_Lund" > selLund.data
+selLund.case_false > voidport
+
+
 nothing.void > readerStockholm.data
-readerLund.data > constantLund.in
-readerStockholm.data > constantStockholm.in
-constantLund.out > dbgLund.token
-constantStockholm.out > dbgStockholm.token
-constantLund.out > station.token_1
-constantStockholm.out > station.token_2
+readerStockholm.data > jsonStockholm.container
+"data" > jsonStockholm.key
+53072129 > compareStockholm.a
+jsonStockholm.value > compareStockholm.b
+compareStockholm.result > selStockholm.select
+"snk_Stockholm" > selStockholm.data
+selStockholm.case_false > voidport
+
+selLund.case_true > join.token_1
+selStockholm.case_true > join.token_2
 
 
 # deploy
@@ -146,5 +161,5 @@ deploy.app_info > dbgDeploy.token
 # migrate
 deploy.app_info > migrate.app_id
 migrate.done > dbgMigrate.token
-station.token > migrate.key
+join.token > migrate.key
 

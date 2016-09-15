@@ -14,11 +14,14 @@ dbgStockholm: io.Print()
 #RFID stuff
 nothing : std.Void()
 readerLund : sensor.RFIDReader()
+jsonLund: json.GetValue()
 readerStockholm : sensor.RFIDReader()
 constantLund: std.Constantify(constant="src_Lund")
 constantStockholm: std.Constantify(constant="src_Stockholm")
 
 nothing.void > readerLund.data
+"cardno" > jsonLund.key
+
 nothing.void > readerStockholm.data
 readerLund.data > constantLund.in
 readerStockholm.data > constantStockholm.in

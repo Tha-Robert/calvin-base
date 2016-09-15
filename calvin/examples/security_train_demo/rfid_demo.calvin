@@ -1,13 +1,18 @@
 
 #RFID stuff
 nothing : std.Void()
-reader : sensor.RFIDReader()
 dbg: io.Print()
-
+reader : sensor.RFIDReader()
+json: json.GetValue()
+compare: std.Compare(op="=")
+sel: std.Select()
 
 nothing.void > reader.data
-reader.data > dbg.token 
-
-
-
-
+reader.data > json.container
+"data" > json.key
+53072129 > compare.a
+json.value > compare.b
+compare.result > sel.select
+"Train is passing RFID reader" > sel.data
+sel.case_false > voidport
+sel.case_true > dbg.token 

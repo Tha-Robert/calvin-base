@@ -48,6 +48,8 @@ In the example folder on each raspberry, place the following contents in a calvi
 
 RFID: `{ "global": { "rfid_plugin": "platform/rc522_impl", "actor_paths": ["./actors"] } }`
 
+Camera_Sensehat: `{ "global": { "display_plugin": "platform/raspberry_pi/adafruitcharlcdwithoutplate_impl", "media_framework": "platform/raspberry_pi/picamera_impl", "actor_paths": ["./actors"] } }`
+
 # Generate certificates
 
 - create CA on elx (192.168.1.141): `csmanage ca create train_demo`
