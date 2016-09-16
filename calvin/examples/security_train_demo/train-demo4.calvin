@@ -1,7 +1,7 @@
 #deploy info
 define CONTROL_URI = "control_uri"
 #define SCRIPT = "src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n"
-define SCRIPT = "src : std.CountTimer(sleep=10)\nsensor : sensor.Environmental()\ndisplay : io.Display()\nsrc.integer > sensor.trigger\nsensor.data > display.text\n"
+define SCRIPT = "trigger : std.Trigger(tick=28, data=\"Cargo train arriving, please keep clear of the tracks!\")\ninfoBoard : io.Display()\nsrc : std.CountTimer(sleep=10)\nsensor : sensor.Environmental()\ndisplay : io.Display()\nsrc.integer > sensor.trigger\nsensor.data > display.text\ntrigger.data > infoBoard.text"
 #define SCRIPTFILE="train.calvin"
 define APPNAME = "train_demo"
 #deploy info
@@ -67,8 +67,10 @@ file: std.Constant(data=SCRIPT)
 
 #deploy info
 deploy_info: std.Constant(data={
+        "trigger":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "2_Display"}]},"type":"+"}],
+        "infoBoard":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "2_Display"}]},"type":"+"}],
         "src":		[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
-        "sensor":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]},"type":"+"}],
+        "sensor":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
         "display":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}]
 	})
 

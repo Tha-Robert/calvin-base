@@ -1,0 +1,4 @@
+trigger : std.Trigger(tick=28, data="Cargo train arriving, please keep clear of the tracks!")
+display : io.Display()
+trigger.data > display.text
+
