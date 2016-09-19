@@ -1,7 +1,7 @@
 #deploy info
 define CONTROL_URI = "control_uri"
 #define SCRIPT = "src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n"
-define SCRIPT = "cameraTrigger : std.Trigger(data=1, tick=5)\ncamera : media.Camera()\ncameraDisplay : media.ImageRenderer()\ndisplayTrigger : std.Trigger(tick=15, data=\"Cargo train arriving.NEW_LINEPlease keep clear of the tracks!\")\ninfoBoard : io.Display()\nsrc : std.CountTimer(sleep=10)\nsensor : sensor.Environmental()\ndisplay : io.Display()\ncameraTrigger.data > camera.trigger\ncamera.image > cameraDisplay.image\nsrc.integer > sensor.displayTrigger\nsensor.data > display.text\ndisplayTrigger.data > infoBoard.text"
+define SCRIPT = "cameraTrigger : std.Trigger(data=1, tick=5)\ncamera : media.Camera()\ncameraDisplay : media.ImageRenderer()\ninfoBoardTrigger : std.Trigger(tick=15, data=\"Cargo train arriving.NEW_LINEPlease keep clear of the tracks!\")\ninfoBoard : io.Display()\nsensorTimer : std.CountTimer(sleep=5)\nsensor : sensor.Environmental()\nsensorDisplay : io.Display()\ncameraTrigger.data > camera.trigger\ncamera.image > cameraDisplay.image\nsensorTimer.integer > sensor.trigger\nsensor.data > sensorDisplay.text\ninfoBoardTrigger.data > infoBoard.text"
 #define SCRIPTFILE="train.calvin"
 define APPNAME = "train_demo"
 #deploy info
@@ -66,39 +66,48 @@ component CalvinMigrater(control_uri, deploy_info) app_id, key -> done {
 file: std.Constant(data=SCRIPT)
 
 #deploy info
-deploy_info: std.Constant(data={
-        "trigger":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "2_Display"}]},"type":"+"}],
-        "infoBoard":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "2_Display"}]},"type":"+"}],
-        "src":		[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
+deploy_info: std.Constant(data=
+{
+    "requirements":
+    {
+        "cameraTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
+        "camera":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
+        "cameraDisplay":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "ELX"}]},"type":"+"}],
+        "infoBoardTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Display"}]},"type":"+"}],
+        "infoBoard":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Display"}]},"type":"+"}],
+        "sensorTimer":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
         "sensor":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
-        "display":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
-        "cameraDisplay":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "ELX"}]},"type":"+"}]
-	})
+        "sensorDisplay":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}]
+    }
+})
 
 # name
 name: std.Constant(data=APPNAME)
 
 #rt control
 deploy: CalvinDeployer(control_uri=CONTROL_URI)
-migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info={
-"snk_Lund":
-	{"requirements":
-            {
-	        "camera":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
-	        "infoBoard":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Display"}]}, "type": "+"}],
-	        "display":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
-                "sensor": [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}]
-            }
-        },
-"snk_Stockholm":
-	{"requirements":
-            {
-	        "camera":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
-	        "infoBoard":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Display"}]}, "type": "+"}],
-	        "display":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
-                "sensor": [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}]
-            }
+migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
+{
+   "snk_Lund":
+   {
+        "requirements":
+        {
+	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
+	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Display"}]}, "type": "+"}],
+	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
+            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}]
         }
+    },
+    "snk_Stockholm":
+    {
+        "requirements":
+        {
+	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
+	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Display"}]}, "type": "+"}],
+	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
+            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}]
+        }
+    }
 })
 
 
