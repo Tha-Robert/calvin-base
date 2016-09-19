@@ -1,9 +1,14 @@
-#trigger : std.Constant(data=1, n=-1)
-trigger : std.RecTimer(delay=1)
+trigger : std.Trigger(data=1, tick=10)
 camera : media.Camera()
 screen : media.ImageRenderer()
-const: std.Constant(data=1, n=-1)
-
-const.token > trigger.token
-trigger.token  > camera.trigger
+trigger.data  > camera.trigger
 camera.image > screen.image
+
+
+
+
+#trigger : std.Trigger(data=1, tick=10)
+#camera : media.Camera()
+#screen : io.StandardOut()
+#trigger.data  > camera.trigger
+#camera.image > screen.token

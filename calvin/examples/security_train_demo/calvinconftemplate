@@ -3,6 +3,7 @@
   "global": {
     "rfid_plugin": "platform/rc522_impl",
     "actor_paths": ["./actors"]
+    "capabilities_blacklist": ["calvinsys.io.display", "calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental"]
   }
 }
 
@@ -11,6 +12,7 @@
   "global": {
     "display_plugin": "platform/raspberry_pi/adafruitcharlcdwithoutplate_impl",
     "actor_paths": ["./actors"]
+    "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental", "calvinsys.sensor.RFIDReader"]
   }
 }
 
@@ -21,6 +23,7 @@
     "environmental_sensor_plugin": "platform/raspberry_pi/sensehat_impl",
     "media_framework": "platform/raspberry_pi/picamera_impl",
     "actor_paths": ["./actors"]
+    "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.RFIDReader"]
   }
 }
 
