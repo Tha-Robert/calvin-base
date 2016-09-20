@@ -25,7 +25,7 @@ from PIL import Image
 from io import BytesIO
 
 width = 640
-height = 320
+height = 480
 
 class Camera(object):
 
@@ -40,6 +40,7 @@ class Camera(object):
 	print "initialize picamera"
 	self.camera = PiCamera()
 	self.camera.resolution = (width, height)
+	self.camera.rotation = 90
 	#allow the camera to warm up
 	time.sleep(0.1)
 
@@ -48,13 +49,11 @@ class Camera(object):
         Captures an image
         returns: Image as jpeg encoded binary string, None if no frame
         """
-	print "Hakan, taking picture"
-	rawCapture = PiRGBArray(self.camera)
-	self.camera.capture(rawCapture, format="bgr")
-        frame = rawCapture.array
-        encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),50]
-        ret, jpeg = cv2.imencode(".jpeg", frame, encode_param)
-	return base64.b64encode(jpeg)
+	stream = BytesIO()
+	#capture into stream, use video port as it is much faster
+	self.camera.capture(stream, format='jpeg', use_video_port=True)
+	picture = stream.getvalue()
+	return base64.b64encode(picture)
 
   
 
