@@ -29,18 +29,49 @@ class Image(object):
     """
 
     def __init__(self):
+	print "Hakan: Image::__init__"
         self.display = None
 
     def show_image(self, image, width, height):
         """
         Show image
         """
-        size = (width, height)
-        self.display = pygame.display.set_mode(size, 0)
+	print "Hakan: Image::show_image"
+
+	self.display = pygame.display.set_mode(size, 0)
         self.snapshot = pygame.surface.Surface(size, 0, self.display)
         img = pygame.image.load(StringIO(image))
         self.display.blit(img, (0, 0))
         pygame.display.flip()
+
+	# define text and colors
+	dgryColor = pygame.Color(64,64,64)
+	greenColor = pygame.Color(0,255,0)
+	yellowColor = pygame.Color(255,255,0)
+	redColor = pygame.Color(255,0,0)
+	blueColor = pygame.Color(0,0,255)
+	whiteColor = pygame.Color(255,255,255)
+	greyColor = pygame.Color(128,128,128)
+	blackColor = pygame.Color(0,0,0)
+	purpleColor = pygame.Color(255,0,255)
+	lgryColor = pygame.Color(192,192,192)
+	msg = "The weather at the next station is: H:50, P: 34, T:22"
+	fsize = 16
+	textcolor = 5 # 0 to 9
+	backcolor = 0 # 0 to 9, -1 for no background
+	fx = 10  # x position of text
+	fy = 620 # y postion of text        size = (width, height)
+	#put text on image
+	colors = [dgryColor,yellowColor,redColor,greenColor,blueColor,whiteColor,greyColor,blackColor,purpleColor,lgryColor]
+	tcolor = colors[textcolor]
+	lt = (len(msg) * (fsize/2)) + fsize
+	if backcolor > -1:
+   	   bcolor = colors[backcolor]
+	   pygame.draw.rect(windowSurfaceObj,bcolor,Rect(fx,fy, lt, fsize))
+	fontObj = pygame.font.Font('freesansbold.ttf',fsize)
+	msgSurfaceObj = fontObj.render(msg, False,tcolor)
+	msgRectobj = msgSurfaceObj.get_rect()
+	msgRectobj.topleft =(fx,fy)        
 
     def detect_face(self, image):
         linux_prefix = "/usr/share/opencv"
