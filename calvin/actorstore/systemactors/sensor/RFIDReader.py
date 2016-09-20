@@ -110,7 +110,7 @@ class RFIDReader(Actor):
             result["data"] = value
             result["status"] = True
             result["timestamp"] = str(now())
-            self.timeout_timer = self['timer'].repeat(0.5)
+            self.timeout_timer = self['timer'].repeat(0.05)
             self._state = "check card"
         else :
             _log.info("could not read card %r" % (self.active_uid,))
