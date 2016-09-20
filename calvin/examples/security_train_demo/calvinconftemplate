@@ -9,7 +9,7 @@
     },
     "security": {
         "security_domain_name" : "sj.se",
-	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security/security",
+	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
@@ -35,7 +35,7 @@
     },
     "security": {
         "security_domain_name" : "sj.se",
-	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security/security",
+	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
@@ -63,7 +63,7 @@
     },
     "security": {
         "security_domain_name" : "sj.se",
-	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security/security",
+	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
