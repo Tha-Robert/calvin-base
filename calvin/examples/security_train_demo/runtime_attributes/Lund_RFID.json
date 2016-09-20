@@ -1,0 +1,14 @@
+{
+	"indexed_public": {
+		"address": {
+			"country": "SE", 
+			"locality": "Lund", 
+			"street": "Bangatan", 
+			"streetNumber": 1, 
+		}, 
+		"node_name": {
+			"organization": "se.sj", 
+			"name": "Lund_RFID"
+		}
+	}
+}

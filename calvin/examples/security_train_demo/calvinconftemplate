@@ -1,10 +1,26 @@
 #RFID
 {
-  "global": {
-    "rfid_plugin": "platform/rc522_impl",
-    "actor_paths": ["./actors"],
-    "capabilities_blacklist": ["calvinsys.io.display", "calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental"]
-  }
+    "global": {
+        "storage_type": "proxy",
+        "storage_proxy": "calvinip://192.168.1.112:5000"
+    	"rfid_plugin": "platform/rc522_impl",
+    	"actor_paths": ["./actors"],
+    	"capabilities_blacklist": ["calvinsys.io.display", "calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental"]
+    },
+    "security": {
+        "security_conf": {
+            "comment": "Security settings with access control enabled",
+            "authentication": {
+                "procedure": "local",
+                "identity_provider_path": "identity_provider"
+            },
+            "authorization": {
+                "procedure": "external",
+                "policy_storage_path": "policies"
+            }
+        },
+        "security_domain_name": "SJ"
+    }
 }
 
 #Display
@@ -32,6 +48,24 @@
   "global": {
     "actor_paths": ["./actors"],
     "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental","calvinsys.sensor.RFIDReader"]
-  }
+  },
+    "security": {
+        "security_domain_name" : "SJ",
+	"security_path" : "security",
+        "security_conf": {
+            "comment": "Security settings with access control enabled",
+	    "signature_trust_store": "trustStore"
+            "authentication": {
+                "procedure": "local",
+                "identity_provider_path": "identity_provider"
+            },
+            "authorization": {
+                "procedure": "local",
+                "policy_storage_path": "policies",
+		"accept_external_requests": True
+            }
+        }
+    }
+dd
 }
 

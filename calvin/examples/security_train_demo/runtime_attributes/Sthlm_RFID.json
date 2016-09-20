@@ -1,0 +1,14 @@
+{
+	"indexed_public": {
+		"address": {
+			"country": "SE", 
+			"locality": "Stockholm", 
+			"street": "Centralplan", 
+			"streetNumber": 15, 
+		}, 
+		"node_name": {
+			"organization": "se.sj", 
+			"name": "Sthlm_RFID"
+		}
+	}
+}

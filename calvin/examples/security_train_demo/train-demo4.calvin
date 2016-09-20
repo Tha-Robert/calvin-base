@@ -1,7 +1,7 @@
 #deploy info
 define CONTROL_URI = "control_uri"
 #define SCRIPT = "src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n"
-define SCRIPT = "cameraTrigger : std.Trigger(data=1, tick=5)\ncamera : media.Camera()\ncameraDisplay : media.ImageRenderer()\ninfoBoardTrigger : std.Trigger(tick=15, data=\"Cargo train arriving.NEW_LINEPlease keep clear of the tracks!\")\ninfoBoard : io.Display()\nsensorTimer : std.CountTimer(sleep=5)\nsensor : sensor.Environmental()\nsensorDisplay : io.Display()\ncameraTrigger.data > camera.trigger\ncamera.image > cameraDisplay.image\nsensorTimer.integer > sensor.trigger\nsensor.data > sensorDisplay.text\ninfoBoardTrigger.data > infoBoard.text"
+define SCRIPT = "cameraTrigger : std.Trigger(data=0.22, tick=1)\ncamera : media.Camera()\ncameraDisplay : media.ImageRenderer()\ninfoBoardTrigger : std.Trigger(tick=4, data=\"Cargo train arriving.NEW_LINEKeep clear of tracks!\")\ninfoBoard : io.Display()\nsensorTimer : std.CountTimer(sleep=5)\nsensor : sensor.Environmental()\nsensorDisplay : io.Display()\ncameraTrigger.data > camera.trigger\ncamera.image > cameraDisplay.image\nsensorTimer.integer > sensor.trigger\nsensor.data > sensorDisplay.text\ninfoBoardTrigger.data > infoBoard.text"
 #define SCRIPTFILE="train.calvin"
 define APPNAME = "train_demo"
 #deploy info
@@ -92,8 +92,11 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
    {
         "requirements":
         {
+	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
 	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
+	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Display"}]}, "type": "+"}],
 	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Display"}]}, "type": "+"}],
+	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
 	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
             "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}]
         }
@@ -102,8 +105,11 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
     {
         "requirements":
         {
+	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
 	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
+	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Display"}]}, "type": "+"}],
 	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Display"}]}, "type": "+"}],
+	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
 	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
             "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}]
         }
