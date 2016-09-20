@@ -80,7 +80,7 @@ class Display(base_display.DisplayBase):
         self.show_text(text)
 
     def show_text(self, text):
-        lines = text.split("\n", 1)
+        lines = text.split("NEW_LINE", 1)
         if len(lines) == 1:
             line_1 = lines[0]
             line_2 = ""
