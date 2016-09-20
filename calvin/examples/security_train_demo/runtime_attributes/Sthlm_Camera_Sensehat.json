@@ -4,7 +4,7 @@
 			"country": "SE", 
 			"locality": "Stockholm", 
 			"street": "Centralplan", 
-			"streetNumber": 15, 
+			"streetNumber": 15 
 		}, 
 		"node_name": {
 			"organization": "se.sj", 

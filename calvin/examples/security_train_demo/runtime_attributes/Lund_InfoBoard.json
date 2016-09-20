@@ -4,7 +4,7 @@
 			"country": "SE", 
 			"locality": "Lund", 
 			"street": "Bangatan", 
-			"streetNumber": 1, 
+			"streetNumber": 1 
 		}, 
 		"node_name": {
 			"organization": "se.sj", 

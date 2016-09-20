@@ -205,9 +205,13 @@ def parse_args():
     #required arguments
     cmd_runtime_create.add_argument('domain', metavar='<domain>', type=str,
                            help='Name of the domain')
-    cmd_runtime_create.add_argument('attr', metavar='<attr>', type=str,
-                           help='runtime attributes, at least name and organization of node_name needs to be supplied, e.g. \'{"indexed_public:{"node_name":{"name":"testName", "organization":"testOrg"}}}\'')
     #optional arguments
+    cmd_runtime_create.add_argument('--attr', metavar='<attr>', type=str,
+                           help='runtime attributes, at least name and organization of node_name needs to be supplied, e.g. \'{"indexed_public:{"node_name":{"name":"testName", "organization":"testOrg"}}}\'', 
+				dest='attr', default=None)
+    cmd_runtime_create.add_argument('--attr-file', metavar='<attr>', type=str,
+                           help='File with JSON coded attributes for started node.',
+				dest='attr_file', default=None)
     cmd_runtime_create.add_argument('--dir', metavar='<dir>', type=str,
                            help='Path to create the runtime at')
     cmd_runtime_create.add_argument('--force', dest='force', action='store_true',
@@ -411,11 +415,15 @@ def manage_cs_sign(args):
 ######################
 def manage_runtime_create(args):
     if args.domain:
-        if not args.attr:
+        if not args.attr and not args.attr_file:
             raise Exception("No runtime attributes supplied")
         if not args.domain:
-            raise Exception("No domain name supplied")
-        attr = json.loads(args.attr)
+            raise Exception("No domain name suipplied")
+	if args.attr:
+            attr = json.loads(args.attr)
+	elif args.attr_file:
+            with open(args.attr_file) as f:
+                attr = json.load(f)
         if not all (k in attr['indexed_public']['node_name'] for k in ("organization","name")):
             raise Exception("please supply name and organization of runtime")
         attributes=AttributeResolver(attr)

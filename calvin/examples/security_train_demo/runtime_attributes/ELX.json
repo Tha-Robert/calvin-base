@@ -1,8 +1,11 @@
 {
-	"indexed_public": {
-		"node_name": {
-			"organization": "se.sj,
-			"name": "elx"
+	"indexed_public":{
+		"node_name":{
+			"name":"ELX",
+			"organization":"se.sj"
+		},
+		"address":{
+			"locality":"Lund"
 		}
 	}
 }
