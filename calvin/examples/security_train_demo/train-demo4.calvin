@@ -70,14 +70,14 @@ deploy_info: std.Constant(data=
 {
     "requirements":
     {
-        "cameraTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
-        "camera":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
+        "cameraTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]},"type":"+"}],
+        "camera":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]},"type":"+"}],
         "cameraDisplay":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "ELX"}]},"type":"+"}],
-        "infoBoardTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Display"}]},"type":"+"}],
-        "infoBoard":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Display"}]},"type":"+"}],
-        "sensorTimer":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
-        "sensor":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}],
-        "sensorDisplay":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},"type":"+"}]
+        "infoBoardTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_InfoBoard"}]},"type":"+"}],
+        "infoBoard":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_InfoBoard"}]},"type":"+"}],
+        "sensorTimer":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]},"type":"+"}],
+        "sensor":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]},"type":"+"}],
+        "sensorDisplay":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]},"type":"+"}]
     }
 })
 
@@ -92,26 +92,26 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
    {
         "requirements":
         {
-	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
-	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
-	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Display"}]}, "type": "+"}],
-	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Display"}]}, "type": "+"}],
-	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
-	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}],
-            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]}, "type": "+"}]
+	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
+	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
+	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Lund_InfoBoard"}]}, "type": "+"}],
+	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Lund_InfoBoard"}]}, "type": "+"}],
+	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
+	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
+            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]}, "type": "+"}]
         }
     },
     "snk_Stockholm":
     {
         "requirements":
         {
-	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
-	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
-	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Display"}]}, "type": "+"}],
-	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Display"}]}, "type": "+"}],
-	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
-	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}],
-            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_Camera_Sensehat"}]}, "type": "+"}]
+	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
+	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
+	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Sthlm_InfoBoard"}]}, "type": "+"}],
+	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Sthlm_InfoBoard"}]}, "type": "+"}],
+	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
+	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
+            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}]
         }
     }
 })

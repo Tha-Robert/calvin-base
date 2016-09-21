@@ -1,0 +1,29 @@
+{
+	"id": "policy1",
+	"description": "Permit access to everything",
+	"rule_combining": "permit_overrides",
+	"target": {
+		"action": {
+			"requires": ["calvinsys.*", "runtime"]
+		},
+		"resource": {
+			"node_name.organization": "se.sj"
+		}
+	},
+	"rules": [
+		{
+			"id": "policy1_rule1",
+			"description": "Permit access to everyone",
+			"effect": "permit",
+			"condition": {
+				"function": "or",
+				"attributes": [
+					{
+						"function": "equal",
+						"attributes": ["attr:subject:user", "*"]
+					}
+				]
+			}
+		}
+	]
+}

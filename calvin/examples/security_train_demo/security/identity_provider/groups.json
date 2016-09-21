@@ -1,0 +1,15 @@
+{
+    "admin": {
+        "organization": "sj",
+        "organizationalUnit": "IT department"
+    },
+    "employee": { 
+        "organization": "sj",
+        "location": "Lund",
+        "address": "Mobilvagen 1"
+    },
+    "passenger": { 
+        "group": "passenger"
+
+    }
+}
