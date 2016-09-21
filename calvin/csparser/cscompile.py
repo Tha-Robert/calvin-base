@@ -30,7 +30,7 @@ def compile_script(source_text, filename, credentials=None, verify=True):
 
 # FIXME: It might make sense to turn this function into a plain asynchronous security check.
 #        Caller can then call compile_script based on status
-def compile_script_check_security(source_text, filename, cb, credentials=None, verify=True, node=None):
+def compile_script_check_security(source_text, filename, cb, credentials=None, content=None, verify=True, node=None, signature=None):
     """
     Compile a script and return a tuple (deployable, errors, warnings).
 
@@ -50,19 +50,20 @@ def compile_script_check_security(source_text, filename, cb, credentials=None, v
         callback({}, it)
 
 
-    def _handle_authentication_decision(source_text, appname, verify, authentication_decision, security, org_cb, content=None):
-        if not authentication_decision:
+    def _handle_authentication_decision(source_text, appname, verify, authentication_decision, security, org_cb, content):
+        if not security.get_subject_attributes():
             _log.error("Authentication failed")
             # This error reason is detected in calvin control and gives proper REST response
             _exit_with_error(org_cb)
 
         verified, signer = security.verify_signature_content(content, "application")
+	_log.debug("Englund: cscompile:: _handle_authentication_decision, content={}, verified={},signer={}".format(content,verified,signer))
         if not verified:
             # Verification not OK if sign or cert not OK.
             _log.error("Failed application verification")
             # This error reason is detected in calvin control and gives proper REST response
             _exit_with_error(org_cb)
-
+	_log.debug("Application signature verification successfull")
         security.check_security_policy(
             CalvinCB(_handle_policy_decision, source_text, appname, verify, security=security, org_cb=org_cb),
             "application",
@@ -85,12 +86,12 @@ def compile_script_check_security(source_text, filename, cb, credentials=None, v
     appname = appname_from_filename(filename)
     # FIXME: if node is None we bypass security even if enabled. Is that the intention?
     if node is not None and security_enabled():
-        if credentials:
-            content = Security.verify_signature_get_files(filename, skip_file=True)
+#        if credentials:
+#            content = Security.verify_signature_get_files(filename, skip_file=True)
             # content is ALWAYS a dict if skip_file is True
-            content['file'] = source_text
-        else:
-            content = None
+#            content['file'] = source_text
+#        else:
+#            content = None
         # FIXME: If cb is None, we will return from this method with None instead of a tuple, failing silently
         sec = Security(node)
         sec.authenticate_subject(

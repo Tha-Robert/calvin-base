@@ -1258,15 +1258,19 @@ class CalvinControl(object):
             if 'app_info' not in data:
                 kwargs = {}
                 # Supply security verification data when available
+		credentials = ""
                 if "sec_credentials" in data:
-                    kwargs['credentials'] = data['sec_credentials']
+                    credentials = data['sec_credentials']
+		    content = {}
                     if "sec_sign" in data:
-                        kwargs['content'] = {
+                        content = {
                             'file': data["script"],
                             'sign': {h: s.decode('hex_codec') for h, s in data['sec_sign'].iteritems()}}
                 compiler.compile_script_check_security(
                     data["script"],
                     filename=data["name"],
+		    credentials=credentials,
+		    content=content,
                     node=self.node,
                     verify=(data["check"] if "check" in data else True),
                     cb=CalvinCB(self.handle_deploy_cont, handle=handle, connection=connection, data=data),
