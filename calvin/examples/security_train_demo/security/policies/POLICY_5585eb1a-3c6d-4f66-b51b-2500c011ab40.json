@@ -1,0 +1,1 @@
+{"rules": [{"effect": "permit", "id": "Rule 1", "condition": {}, "description": "Permit if policy target matches"}], "rule_combining": "permit_overrides", "target": {"subject": {"actor_signer": "__unsigned__", "user": ["Anders", "David", "Elin"]}}, "id": "applicationsigner", "description": "Unsigned actors permitted for Anders, David,Elin"}
