@@ -1258,14 +1258,16 @@ class CalvinControl(object):
             if 'app_info' not in data:
                 kwargs = {}
                 # Supply security verification data when available
-		credentials = ""
+                credentials = ""
+                _log.debug("Englund, data={}".format(data))
                 if "sec_credentials" in data:
                     credentials = data['sec_credentials']
-		    content = {}
-                    if "sec_sign" in data:
-                        content = {
-                            'file': data["script"],
-                            'sign': {h: s.decode('hex_codec') for h, s in data['sec_sign'].iteritems()}}
+                    content = {}
+                    if not "sec_sign" in data:
+                        data['sec_sign']={}
+                    content = {
+                        'file': data["script"],
+                        'sign': {h: s.decode('hex_codec') for h, s in data['sec_sign'].iteritems()}}
                 compiler.compile_script_check_security(
                     data["script"],
                     filename=data["name"],
