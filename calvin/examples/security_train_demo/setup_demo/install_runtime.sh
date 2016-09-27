@@ -17,5 +17,3 @@ sudo apt-get remove -y python-pip
 sudo easy_install pip
 echo ----update six----
 sudo pip install --upgrade six
-
-
