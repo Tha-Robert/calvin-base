@@ -2,7 +2,7 @@
 {
     "global": {
         "storage_type": "proxy",
-        "storage_proxy": "calvinip://192.168.1.141:5000",
+        "storage_proxy": "calvinip://192.168.1.138:5000",
     	"rfid_plugin": "platform/rc522_impl",
     	"actor_paths": ["./actors"],
     	"capabilities_blacklist": ["calvinsys.io.display", "calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental"]
@@ -28,7 +28,7 @@
 {
     "global": {
         "storage_type": "proxy",
-        "storage_proxy": "calvinip://192.168.1.141:5000",
+        "storage_proxy": "calvinip://192.168.1.138:5000",
         "display_plugin": "platform/raspberry_pi/adafruitcharlcdwithoutplate_impl",
         "actor_paths": ["./actors"],
         "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental", "calvinsys.sensor.RFIDReader"]
@@ -54,7 +54,7 @@
 { 
     "global": {
         "storage_type": "proxy",
-        "storage_proxy": "calvinip://192.168.1.141:5000",
+        "storage_proxy": "calvinip://192.168.1.138:5000",
         "display_plugin": "platform/raspberry_pi/sensehat_impl",
         "environmental_sensor_plugin": "platform/raspberry_pi/sensehat_impl",
         "media_framework": "platform/raspberry_pi/picamera_impl",
@@ -87,17 +87,17 @@
       },
     "security": {
         "security_domain_name" : "sj.se",
-	"security_path" : "/home/ehakeng/Calvin/eric-calvin-base/calvin/examples/security_train_demo/security",
+	"security_path" : "/home/ehakeng/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
                 "procedure": "local",
-                "identity_provider_path": "/home/ehakeng/Calvin/eric-calvin-base/calvin/examples/security_train_demo/security/identity_provider"
+                "identity_provider_path": "/home/ehakeng/eric-calvin-base/calvin/examples/security_train_demo/security/identity_provider"
             },
             "authorization": {
                 "procedure": "local",
-                "policy_storage_path": "/home/ehakeng/Calvin/eric-calvin-base/calvin/examples/security_train_demo/security/policies",
-		"accept_external_requests": True
+                "policy_storage_path": "/home/ehakeng/eric-calvin-base/calvin/examples/security_train_demo/security/policies",
+		"accept_external_requests": "True"
             }
         }
     }

@@ -1,0 +1,7 @@
+V	170928083745Z		1001	unknown	/O=SJ/dnQualifier=ae7d438d-7913-4a72-9aa7-4a79ef2af01b/CN=SJ++++ELX
+V	170928083745Z		1003	unknown	/O=SJ/dnQualifier=d3c0fc1e-1e37-4705-a44b-546b1ce949ce/CN=SJ++++Lund_Camera_Sensehat
+V	170928083745Z		1005	unknown	/O=SJ/dnQualifier=22af9924-fab8-4cea-89f1-fbcebc53ff97/CN=SJ++++Lund_RFID
+V	170928083745Z		1007	unknown	/O=SJ/dnQualifier=9f596a18-067c-420a-8496-b23dfc2f9232/CN=SJ++++Lund_InfoBoard
+V	170928083745Z		1009	unknown	/O=SJ/dnQualifier=6b88b39f-014c-42bc-8d2d-15b274c40bdc/CN=SJ++++Sthlm_Camera_Sensehat
+V	170928083745Z		100B	unknown	/O=SJ/dnQualifier=f2489e24-25c8-4038-8b5e-6e3df247be44/CN=SJ++++Sthlm_RFID
+V	170928083746Z		100D	unknown	/O=SJ/dnQualifier=90b94e38-1a43-4f14-bee4-931f5e247695/CN=SJ++++Sthlm_InfoBoard
