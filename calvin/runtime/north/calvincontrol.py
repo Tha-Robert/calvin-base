@@ -1259,7 +1259,6 @@ class CalvinControl(object):
                 kwargs = {}
                 # Supply security verification data when available
                 credentials = ""
-                _log.debug("Englund, data={}".format(data))
                 if "sec_credentials" in data:
                     credentials = data['sec_credentials']
                     content = {}

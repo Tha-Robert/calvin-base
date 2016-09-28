@@ -57,7 +57,6 @@ def compile_script_check_security(source_text, filename, cb, credentials=None, c
             _exit_with_error(org_cb)
 
         verified, signer = security.verify_signature_content(content, "application")
-        _log.debug("Englund: cscompile:: _handle_authentication_decision, content={}, verified={},signer={}".format(content,verified,signer))
         if not verified:
             # Verification not OK if sign or cert not OK.
             _log.error("Failed application verification")

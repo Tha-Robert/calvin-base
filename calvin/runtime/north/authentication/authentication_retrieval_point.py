@@ -70,6 +70,7 @@ class FileAuthenticationRetrievalPoint(object):
             with open(os.path.join(self.path,'users.json'),'rt') as data:
                 return json.load(data)
         except Exception:
+            _log.error("Failed to open users database")
             return None
 
     def create_users_db(self, data):

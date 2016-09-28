@@ -40,33 +40,28 @@ class CalvinDeployerA(Actor):
 
     @manage([])
     def init(self, control_uri=None):
-	print "Hakan: CalvinDeployer::init, control_uri=%s" % control_uri
         self.control_uri = control_uri
         self.use(requirement='calvinsys.native.python-json', shorthand='json')
 
     @condition(['control_uri'], [])
     def new_control_uri(self, control_uri):
-	print "Hakan: CalvinDeployer::new_control_uri"
         if control_uri:
             self.control_uri = control_uri
         return ActionResult()
 
     def exception_handler(self, action, args, context):
-	print "Hakan: CalvinDeployer::exception_handler"
         # Ignore any exceptions
         return ActionResult()
 
     @condition(['name', 'script', 'deploy_info'], ['URL', 'data', 'params', 'header'])
     @guard(lambda self, name, script, deploy_info: self.control_uri is not None)
     def deploy(self, name, script, deploy_info):
-	print "Hakan: CalvinDeployer::deploy"
 	print "name:%s     script:%s" % (name, script)
         body = self['json'].dumps({'script': script, 'name': name, 'deploy_info':deploy_info, 'check': False})
         return ActionResult(production=(self.control_uri + "/deploy", body, {}, {}))
 
     @condition(['status', 'header', 'data'], ['app_info'])
     def deployed(self, status, header, data):
-	print "Hakan: CalvinDeployer::deployed"
         try:
             response = self['json'].loads(data)
         except:

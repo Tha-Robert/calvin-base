@@ -20,6 +20,13 @@ Insert card into RPi, login with pi:raspberry (pirate:hypriot for hypriotOS 1.0)
 
 alternatively, setup Ericsson ntp
 
+`sudo /etc/init.d/ntp stop`
+`sudo ntpdate -s ntp1.ericsson.se`
+
+add `server ntp1.ericsson.se` and `server ntp2.ericsson.se` to `/etc/ntp.conf`
+
+`sudo /etc/init.d/ntp start`
+
 # install calvin runtime
 
 run the install.sh script
@@ -70,7 +77,7 @@ Start csweb on ELX machine on port 8000
 Access in browswer `http://192.168.1.131:8000`
 
 -ELX (runs proxy storage):
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.138 -p 5000 -c 5001 --attr-file runtime_attributes/ELX.json`
+`csruntime -n 192.168.1.138 -p 5000 -c 5001 --attr-file runtime_attributes/ELX.json`
 
 -Lund_InfoBoard:
 `sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.146 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_InfoBoard.json`
@@ -82,19 +89,22 @@ Access in browswer `http://192.168.1.131:8000`
 `sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.112 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_RFID.json`
 
 -Sthlm_InfoBoard:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.114 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_InfoBoard.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.114 -p 5000 -c 5001 --attr-file runtime_attributes/Sthlm_InfoBoard.json`
 
 -Sthlm_Camera_Sensehat:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.130 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_Camera_Sensehat.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.130 -p 5000 -c 5001 --attr-file runtime_attributes/Sthlm_Camera_Sensehat.json`
 
 -Sthlm_RFID:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.140 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_RFID.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.140 -p 5000 -c 5001 --attr-file runtime_attributes/Sthlm_RFID.json`
 
 
-deploy script:
+#Debugging errors
 
-`deploy: cscontrol http://192.168.1.138:5001 deploy train-demo.calvin --reqs rfid-demo.deployjson`
+`csruntime -n 192.168.1.138 -p 5000 -c 5001 --attr-file runtime_attributes/ELX.json --loglevel DEBUG --loglevel calvin.runtime.north.scheduler:ERROR --logfile log.txt`
 
+#deploy script:
+ 
+`cscontrol http://192.168.1.138:5001 deploy --credentials '{"SJ":{"username":"user1","password":"pass1"}}' test1.calvin`
 
 
 #Policy Administration Point

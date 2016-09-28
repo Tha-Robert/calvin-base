@@ -29,14 +29,12 @@ class Image(object):
     """
 
     def __init__(self):
-	print "Hakan: Image::__init__"
         self.display = None
 
     def show_image(self, image, width, height):
         """
         Show image
         """
-	print "Hakan: Image::show_image"
 
 	self.display = pygame.display.set_mode(size, 0)
         self.snapshot = pygame.surface.Surface(size, 0, self.display)

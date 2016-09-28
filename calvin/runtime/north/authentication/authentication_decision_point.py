@@ -110,7 +110,7 @@ class AuthenticationDecisionPoint(object):
             subject_attributes = {}
             decision = False
             for user in users_db['users_db']:
-                if request['subject']['user'] == user['username']:
+                if request['subject']['username'] == user['username']:
                     if pbkdf2_sha256.verify(request['subject']['password'],user['password']):
                         decision = True
                         for key in user['attributes']:
