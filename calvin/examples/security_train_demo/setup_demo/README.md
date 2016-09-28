@@ -18,6 +18,8 @@ Insert card into RPi, login with pi:raspberry (pirate:hypriot for hypriotOS 1.0)
 
 `sudo date -s "9 SEP 2016 11:02:00"`
 
+alternatively, setup Ericsson ntp
+
 # install calvin runtime
 
 run the install.sh script
@@ -57,6 +59,9 @@ Run script: `setup_demo/generate_certificate.sh`
 `curl -X PUT -H "Content-Type: application/json" -d '{"users_db": [{"username": "passenger", "attributes": {"age": "11", "last_name": "Pettersson", "first_name": "Peter", "address": "Petersgatan 1", "groups":["passenger"]}, "password": "pass1"}, {"username": "conductor1", "attributes": {"age": "22", "last_name": "Ceciliasdotter", "first_name": "Cecilia", "groups": ["employee", "conductor","Lund"], "address": "Elinsgatan 2"}, "password": "pass2"}, {"username": "conductor2", "attributes": {"age": "33", "last_name": "Carl", "first_name": "Carlsson","groups": ["employee", "conductor","Stockholm"]}, "password": "pass4"}, {"username": "train driver", "attributes": {"age": "44", "last_name": "Tinasdotter", "first_name": "Tina", "groups":["employee","train driver"]}, "password": "pass4"}]}' http://192.168.1.131:5001/authentication/users_db`
 
 # Start demo
+Turn of ELX firewall
+
+`sudo service firewalld stop`
 
 Start csweb on ELX machine on port 8000
 
@@ -65,30 +70,30 @@ Start csweb on ELX machine on port 8000
 Access in browswer `http://192.168.1.131:8000`
 
 -ELX (runs proxy storage):
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.? -p 5000 -c 5001 --attr-file runtime_attributes/ELX.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.138 -p 5000 -c 5001 --attr-file runtime_attributes/ELX.json`
 
 -Lund_InfoBoard:
 `sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.146 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_InfoBoard.json`
 
 -Lund_Camera_Sensehat:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.? -p 5000 -c 5001 --attr-file runtime_attributes/Lund_Camera_Sensehat.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.144 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_Camera_Sensehat.json`
 
 -Lund_RFID:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.? -p 5000 -c 5001 --attr-file runtime_attributes/Lund_RFID.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.112 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_RFID.json`
 
 -Sthlm_InfoBoard:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.146 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_InfoBoard.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.114 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_InfoBoard.json`
 
 -Sthlm_Camera_Sensehat:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.? -p 5000 -c 5001 --attr-file runtime_attributes/Lund_Camera_Sensehat.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.130 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_Camera_Sensehat.json`
 
 -Sthlm_RFID:
-`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.? -p 5000 -c 5001 --attr-file runtime_attributes/Lund_RFID.json`
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.140 -p 5000 -c 5001 --attr-file runtime_attributes/Lund_RFID.json`
 
 
 deploy script:
 
-`deploy: cscontrol <http://192.168.1.112:5001> deploy train-demo.calvin --reqs rfid-demo.deployjson`
+`deploy: cscontrol http://192.168.1.138:5001 deploy train-demo.calvin --reqs rfid-demo.deployjson`
 
 
 

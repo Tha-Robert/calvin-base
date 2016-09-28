@@ -1,15 +1,19 @@
 {
-    "admin": {
-        "organization": "sj",
-        "organizationalUnit": "IT department"
+    "train_driver": {
+	"sensors":["InfoBoard","Camera","Environment"]
     },
-    "employee": { 
-        "organization": "sj",
-        "location": "Lund",
-        "address": "Mobilvagen 1"
+    "conductor": { 
+	"sensors":["camera","environment"]
     },
     "passenger": { 
-        "group": "passenger"
+        "sensors": ["environment"]
 
+    },
+    "Lund":{
+        "locality":"Lund"
+    },
+    "Stockholm":{
+        "locality":"Stockholm"
     }
+
 }

@@ -8,7 +8,7 @@
     	"capabilities_blacklist": ["calvinsys.io.display", "calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental"]
     },
     "security": {
-        "security_domain_name" : "sj.se",
+        "security_domain_name" : "SJ",
 	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
@@ -18,7 +18,7 @@
             },
             "authorization": {
                 "procedure": "external",
-		"server_uuid": "cc177dba-4943-43b4-9ad8-830374007f2c"
+		"server_uuid": "ecc40603-3ea8-4bff-918e-571a3d899552"
             }
         }
     }
@@ -34,7 +34,7 @@
         "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental", "calvinsys.sensor.RFIDReader"]
     },
     "security": {
-        "security_domain_name" : "sj.se",
+        "security_domain_name" : "SJ",
 	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
@@ -44,7 +44,7 @@
             },
             "authorization": {
                 "procedure": "external",
-		"server_uuid": "cc177dba-4943-43b4-9ad8-830374007f2c"
+		"server_uuid": "ecc40603-3ea8-4bff-918e-571a3d899552"
             }
         }
     }
@@ -62,7 +62,7 @@
         "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.sensor.RFIDReader"]
     },
     "security": {
-        "security_domain_name" : "sj.se",
+        "security_domain_name" : "SJ",
 	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
@@ -72,7 +72,7 @@
             },
             "authorization": {
                 "procedure": "external",
-		"server_uuid": "cc177dba-4943-43b4-9ad8-830374007f2c"
+		"server_uuid": "ecc40603-3ea8-4bff-918e-571a3d899552"
             }
         }
     }
@@ -86,7 +86,7 @@
         "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental","calvinsys.sensor.RFIDReader"]
       },
     "security": {
-        "security_domain_name" : "sj.se",
+        "security_domain_name" : "SJ",
 	"security_path" : "/home/ehakeng/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
