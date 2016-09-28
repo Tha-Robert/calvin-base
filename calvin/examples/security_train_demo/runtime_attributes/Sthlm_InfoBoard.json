@@ -1,11 +1,5 @@
 {
 	"indexed_public": {
-		"address": {
-			"country": "SE", 
-			"locality": "Stockholm", 
-			"street": "Centralplan", 
-			"streetNumber": 15 
-		}, 
 		"node_name": {
 			"organization": "SJ", 
 			"name": "Sthlm_InfoBoard"

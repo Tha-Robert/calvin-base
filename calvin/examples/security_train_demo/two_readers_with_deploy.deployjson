@@ -2,52 +2,52 @@
     "requirements": {
         "dbgLund": 
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},
                   "type":"+"
                   }],
         "dbgStockholm": 
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]},
                   "type":"+"
                   }],
         "nothing": 
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},
                   "type":"+"
                   }],
         "readerLund": 
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},
                   "type":"+"
                   }],
         "readerStockholm":
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]},
                   "type":"+"
                   }],
         "file":
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]},
                   "type":"+"
                   }],
         "deploy_info":
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]},
                   "type":"+"
                   }],
         "name":
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]},
                   "type":"+"
                   }],
         "deploy":
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]},
                   "type":"+"
                   }],
         "dbgDeploy":
                 [{"op": "node_attr_match", 
-                  "kwargs": {"index": ["node_name", {"name": "2_RFID"}]},
+                  "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]},
                   "type":"+"
                   }]
         }

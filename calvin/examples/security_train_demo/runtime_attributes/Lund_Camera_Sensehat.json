@@ -1,11 +1,5 @@
 {
 	"indexed_public": {
-		"address": {
-			"country": "SE", 
-			"locality": "Lund", 
-			"street": "Bangatan", 
-			"streetNumber": 1
-		}, 
 		"node_name": {
 			"organization": "SJ", 
 			"name": "Lund_Camera_Sensehat"

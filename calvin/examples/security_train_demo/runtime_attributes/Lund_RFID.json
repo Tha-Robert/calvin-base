@@ -3,12 +3,6 @@
 		"node_name":{
 			"name":"Lund_RFID",
 			"organization":"SJ"
-		},
-		"address":{
-			"country": "SE", 
-			"locality": "Lund", 
-			"street": "Bangatan", 
-			"streetNumber": 1 
 		}
 	}
 }

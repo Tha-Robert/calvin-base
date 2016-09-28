@@ -1,19 +1,19 @@
 {
     "requirements": {
-        "file": 	    [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "deploy_info":      [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "name":             [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "deploy":      	    [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "migrate":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "dbgLund":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
-        "dbgStockholm":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "dbgDeploy":        [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "dbgMigrate":       [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "nothing":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
-        "readerLund":       [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
-        "readerStockholm":  [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "2_RFID"}]}, "type":"+"}],
-        "constantLund":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
-        "constantStockholm":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}],
-        "station":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]}, "type":"+"}]
+        "file": 	    [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "deploy_info":      [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "name":             [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "deploy":      	    [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "migrate":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "dbgLund":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},"type":"+"}],
+        "dbgStockholm":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "dbgDeploy":        [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "dbgMigrate":       [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "nothing":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},"type":"+"}],
+        "readerLund":       [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},"type":"+"}],
+        "readerStockholm":  [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Sthlm_RFID"}]}, "type":"+"}],
+        "constantLund":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},"type":"+"}],
+        "constantStockholm":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}],
+        "station":          [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]}, "type":"+"}]
 	}
 }

@@ -1,6 +1,7 @@
 {
+    "groups": {"firstgroup": ["src", "snk"]},
     "requirements": {
-        "src":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},"type":"+"}],
-        "snk":[	{"op": "node_attr_match","kwargs": {"index": ["node_name", {"name": "2_RFID"}]},"type":"+"}]
+        "src": [{"op": "node_attr_match","kwargs": {"index":["node_name",{"organization":"SJ", "name": "ELX"}]},"type": "+"}], 
+        "snk": [{"op": "node_attr_match", "kwargs":{"index":["node_name",{"organization": "SJ", "name": "Lund_RFID"}]},"type": "+"}] 
     }
 }

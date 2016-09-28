@@ -3,13 +3,13 @@
         "trigger":[
 	{
 		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "1_RFID"}]},
+                "kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]},
                 "type":"+"
 	}],
         "camera":[
 	{
 		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "1_Camera_Sensehat"}]},
+                "kwargs": {"index": ["node_name", {"name": "Lund_Camera_Sensehat"}]},
                 "type":"+"
 	}],
         "screen":[

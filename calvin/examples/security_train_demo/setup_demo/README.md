@@ -19,11 +19,13 @@ Insert card into RPi, login with pi:raspberry (pirate:hypriot for hypriotOS 1.0)
 `sudo date -s "9 SEP 2016 11:02:00"`
 
 alternatively, setup Ericsson ntp
+sudo apt-get install ntpdate
 
 `sudo /etc/init.d/ntp stop`
 `sudo ntpdate -s ntp1.ericsson.se`
 
-add `server ntp1.ericsson.se` and `server ntp2.ericsson.se` to `/etc/ntp.conf`
+add 
+`server ntp1.ericsson.se` and `server ntp2.ericsson.se` to `/etc/ntp.conf`
 
 `sudo /etc/init.d/ntp start`
 
@@ -104,7 +106,7 @@ Access in browswer `http://192.168.1.131:8000`
 
 #deploy script:
  
-`cscontrol http://192.168.1.138:5001 deploy --credentials '{"SJ":{"username":"user1","password":"pass1"}}' test1.calvin`
+`cscontrol http://192.168.1.138:5001 deploy --credentials '{"SJ":{"username":"user1","password":"pass1"}}' test1.calvin --reqs test1.deployjson`
 
 
 #Policy Administration Point
