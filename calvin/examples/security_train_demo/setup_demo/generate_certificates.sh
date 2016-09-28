@@ -6,6 +6,7 @@ RUNTIMES_DIR=$SECURITY_DIR/runtimes
 DOMAIN=SJ
 
 rm -rf $SECURITY_DIR/$DOMAIN
+rm -rf $RUNTIMES_DIR
 #Create CA
 csmanage ca create --dir $SECURITY_DIR/ $DOMAIN
 #Create runtime ELX
