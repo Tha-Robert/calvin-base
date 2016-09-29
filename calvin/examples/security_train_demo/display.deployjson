@@ -1,16 +1,6 @@
 {
     "requirements": {
-        "src":[
-	{
-		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "Lund_RFID"}]},
-                "type":"+"
-	}],
-        "display":[
-	{
-		"op": "node_attr_match", 
-                "kwargs": {"index": ["node_name", {"name": "Sthlm_Display"}]},
-                "type":"+"
-	}]
+        "src": [{"op": "node_attr_match","kwargs":{"index":["node_name",{"organization":"SJ", "name": "Sthlm_InfoBoard"}]},"type": "+"}], 
+        "display": [{"op": "node_attr_match","kwargs":{"index":["node_name",{"organization": "SJ", "name": "Sthlm_InfoBoard"}]},"type": "+"}] 
     }
 }

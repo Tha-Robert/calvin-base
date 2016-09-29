@@ -31,7 +31,7 @@
         "storage_proxy": "calvinip://192.168.1.138:5000",
         "display_plugin": "platform/raspberry_pi/adafruitcharlcdwithoutplate_impl",
         "actor_paths": ["./actors"],
-        "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental", "calvinsys.sensor.RFIDReader"]
+        "capabilities_blacklist": ["calvinsys.media.imagerenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental", "calvinsys.sensors.rfid"]
     },
     "security": {
         "security_domain_name" : "SJ",
@@ -59,7 +59,7 @@
         "environmental_sensor_plugin": "platform/raspberry_pi/sensehat_impl",
         "media_framework": "platform/raspberry_pi/picamera_impl",
         "actor_paths": ["./actors"],
-        "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.sensor.RFIDReader"]
+        "capabilities_blacklist": ["calvinsys.sensors.rfid"]
     },
     "security": {
         "security_domain_name" : "SJ",
@@ -83,7 +83,7 @@
     "global": {
         "storage_type": "local",
         "actor_paths": ["./actors"],
-        "capabilities_blacklist": ["calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental","calvinsys.sensor.RFIDReader"]
+        "capabilities_blacklist": ["calvinsys.media.camerahandler", "calvinsys.sensors.environmental", "calvinsys.sensors.rfid"]
       },
     "security": {
         "security_domain_name" : "SJ",

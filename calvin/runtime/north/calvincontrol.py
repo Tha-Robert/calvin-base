@@ -1255,13 +1255,13 @@ class CalvinControl(object):
     def handle_deploy(self, handle, connection, match, data, hdr):
         try:
             _log.analyze(self.node.id, "+", data)
+            content = {}
             if 'app_info' not in data:
                 kwargs = {}
                 # Supply security verification data when available
                 credentials = ""
                 if "sec_credentials" in data:
                     credentials = data['sec_credentials']
-                    content = {}
                     if not "sec_sign" in data:
                         data['sec_sign']={}
                     content = {
