@@ -1,7 +1,17 @@
 #deploy info
 define CONTROL_URI = "control_uri"
 #define SCRIPT = "src : std.CountTimer()\nsnk : io.StandardOut()\nsrc.integer > snk.token\n"
-define SCRIPT = "cameraTrigger : std.Trigger(data=0.22, tick=1)\ncamera : media.Camera()\ncameraDisplay : media.ImageRenderer()\ninfoBoardTrigger : std.Trigger(tick=4, data=\"Cargo train arriving.NEW_LINEKeep clear of tracks!\")\ninfoBoard : io.Display()\nsensorTimer : std.CountTimer(sleep=5)\nsensor : sensor.Environmental()\nsensorDisplay : io.Display()\ncameraTrigger.data > camera.trigger\ncamera.image > cameraDisplay.image\nsensorTimer.integer > sensor.trigger\nsensor.data > sensorDisplay.text\ninfoBoardTrigger.data > infoBoard.text"
+define SCRIPT = "cameraTrigger : std.Trigger(data=0.22, tick=1)\n"
+"camera : media.Camera()\n"
+"cameraDisplay : media.ImageRenderer()\n"
+"infoBoardTrigger : std.Trigger(tick=4, data=\"Cargo train arriving.NEW_LINEKeepclear of tracks!\")\n"
+"infoBoard : io.Display()\nsensorTimer : std.CountTimer(sleep=5)\nsensor :sensor.Environmental()\n"
+"sensorDisplay : io.Display()\n"
+"cameraTrigger.data > camera.trigger\n"
+"camera.image > cameraDisplay.image\n"
+"sensorTimer.integer > sensor.trigger\n"
+"sensor.data > sensorDisplay.text\n"
+"infoBoardTrigger.data > infoBoard.text"
 #define SCRIPTFILE="train.calvin"
 define APPNAME = "train_demo"
 #deploy info
@@ -88,7 +98,7 @@ name: std.Constant(data=APPNAME)
 deploy: CalvinDeployer(control_uri=CONTROL_URI)
 migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
 {
-   "snk_Lund":
+   "stationLund":
    {
         "requirements":
         {
@@ -101,7 +111,7 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
             "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]}, "type": "+"}]
         }
     },
-    "snk_Stockholm":
+    "stationStockholm":
     {
         "requirements":
         {
@@ -134,17 +144,20 @@ readerLund : sensor.RFIDReader()
 jsonLund: json.GetValue()
 compareLund: std.Compare(op="=")
 selLund: std.Select()
-snkLundConst: std.Constant(data="snk_Lund", n=-1)
+snkLundConst: std.Constant(data="stationLund", n=-1)
 sinkLund: std.Terminator()
 
 readerStockholm : sensor.RFIDReader()
 jsonStockholm: json.GetValue()
 compareStockholm: std.Compare(op="=")
 selStockholm: std.Select()
-snkStockholmConst: std.Constant(data="snk_Stockholm", n=-1)
+snkStockholmConst: std.Constant(data="stationStockholm", n=-1)
 sinkStockholm: std.Terminator()
 
 join: std.Join()
+
+servo:io.TrainTrackSwitch()
+
 
 ## Connections ##
 nothing.void > readerLund.data
@@ -165,6 +178,7 @@ compareStockholm.result > selStockholm.select
 snkStockholmConst.token > selStockholm.data
 selStockholm.case_false > sinkStockholm.void
 
+selLund.case_true > servo.switch
 selLund.case_true > join.token_1
 selStockholm.case_true > join.token_2
 selLund.case_true > dbgLund.token

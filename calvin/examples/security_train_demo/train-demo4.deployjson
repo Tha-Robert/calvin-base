@@ -24,6 +24,7 @@
         "selStockholm":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_RFID"}]}, "type":"+"}],
         "snkStockholmConst":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_RFID"}]}, "type":"+"}],
         "sinkStockholm":     [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_RFID"}]}, "type":"+"}],
-        "join":             [{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_RFID"}]}, "type":"+"}]
+        "join":             [{"op": "node_attr_match", "kwargs": {"index":["node_name", {"organization":"SJ","name": "Lund_RFID"}]}, "type":"+"}],
+        "servo":             [{"op": "node_attr_match", "kwargs": {"index":["node_name", {"organization":"SJ","name": "Servo"}]}, "type":"+"}]
 	}
 }

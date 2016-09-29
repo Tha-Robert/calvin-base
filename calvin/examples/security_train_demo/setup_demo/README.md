@@ -99,6 +99,8 @@ Access in browswer `http://192.168.1.131:8000`
 -Sthlm_RFID:
 `sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.140 -p 5000 -c 5001 --attr-file runtime_attributes/Sthlm_RFID.json`
 
+-Sthlm_RFID:
+`sudo -H CALVIN_CONFIG_PATH=$(pwd) csruntime -n 192.168.1.128 -p 5000 -c 5001 --attr-file runtime_attributes/Servo.json`
 
 #Debugging errors
 
