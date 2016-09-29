@@ -5,11 +5,11 @@
         "storage_proxy": "calvinip://192.168.1.138:5000",
     	"rfid_plugin": "platform/rc522_impl",
     	"actor_paths": ["./actors"],
-    	"capabilities_blacklist": ["calvinsys.io.display", "calvinsys.media.ImageRenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental"]
+    	"capabilities_blacklist": ["calvinsys.io.display","calvinsys.media.camerahandler", "calvinsys.sensor.Environmental"]
     },
     "security": {
         "security_domain_name" : "SJ",
-	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
+        "security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
@@ -18,7 +18,7 @@
             },
             "authorization": {
                 "procedure": "external",
-		"server_uuid": "ecc40603-3ea8-4bff-918e-571a3d899552"
+	    	    "server_uuid": "2a44bdc8-4f8c-4477-aade-fbb36b04ce21"
             }
         }
     }
@@ -31,11 +31,12 @@
         "storage_proxy": "calvinip://192.168.1.138:5000",
         "display_plugin": "platform/raspberry_pi/adafruitcharlcdwithoutplate_impl",
         "actor_paths": ["./actors"],
-        "capabilities_blacklist": ["calvinsys.media.imagerenderer", "calvinsys.media.Camera", "calvinsys.sensor.Environmental", "calvinsys.sensors.rfid"]
+        "capabilities_blacklist":
+["calvinsys.media.imagerenderer","calvinsys.media.camerahandler","calvinsys.sensor.environmental", "calvinsys.sensors.rfid"]
     },
     "security": {
         "security_domain_name" : "SJ",
-	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
+        "security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
@@ -44,7 +45,7 @@
             },
             "authorization": {
                 "procedure": "external",
-		"server_uuid": "ecc40603-3ea8-4bff-918e-571a3d899552"
+                "server_uuid": "2a44bdc8-4f8c-4477-aade-fbb36b04ce21"
             }
         }
     }
@@ -63,7 +64,7 @@
     },
     "security": {
         "security_domain_name" : "SJ",
-	"security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
+	    "security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
@@ -72,7 +73,7 @@
             },
             "authorization": {
                 "procedure": "external",
-		"server_uuid": "ecc40603-3ea8-4bff-918e-571a3d899552"
+                "server_uuid": "2a44bdc8-4f8c-4477-aade-fbb36b04ce21"
             }
         }
     }
@@ -87,7 +88,7 @@
       },
     "security": {
         "security_domain_name" : "SJ",
-	"security_path" : "/home/ehakeng/eric-calvin-base/calvin/examples/security_train_demo/security",
+	    "security_path" : "/home/ehakeng/eric-calvin-base/calvin/examples/security_train_demo/security",
         "security_conf": {
             "comment": "Security settings with access control enabled",
             "authentication": {
@@ -105,7 +106,27 @@
 
 #Servo
 {
-  "global": {
-    "servomotor_plugin": "platform/raspberry_pi/adafruitpwmdriver_impl"
-  }
+    "global": {
+        "storage_type": "proxy",
+        "storage_proxy": "calvinip://192.168.1.138:5000",
+        "servomotor_plugin": "platform/raspberry_pi/adafruitpwmdriver_impl"
+        "actor_paths": ["./actors"],
+        "capabilities_blacklist":["calvinsys.media.camerahandler","calvinsys.media.image", "calvinsys.sensors.environmental","calvinsys.sensors.rfid"]
+    },
+    "security": {
+        "security_domain_name" : "SJ",
+        "security_path" : "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security",
+        "security_conf": {
+            "comment": "Security settings with access control enabled",
+            "authentication": {
+                "procedure": "local",
+                "identity_provider_path": "/home/pi/eric-calvin-base/calvin/examples/security_train_demo/security/identity_provider"
+            },
+            "authorization": {
+                "procedure": "external",
+                "server_uuid": "2a44bdc8-4f8c-4477-aade-fbb36b04ce21"
+            }
+        }
+    }
+}
 }
