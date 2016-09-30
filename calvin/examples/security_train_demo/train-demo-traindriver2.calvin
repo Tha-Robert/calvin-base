@@ -13,13 +13,13 @@ define SCRIPT = "cameraTrigger : std.Trigger(data=0.22, tick=1)\n"
 "sensor.data > sensorDisplay.text\n"
 "infoBoardTrigger.data > infoBoard.text"
 #define SCRIPTFILE="train.calvin"
-define APPNAME = "train_demo"
+define APPNAME = "train_demo_conductor1"
 #deploy info
 
 ### Components ###
 # Components
 component CalvinDeployer(control_uri) name, script, deploy_info -> app_info {
-    sec_credentials:std.Constant(data= {"SJ":{"username":"user2","password":"pass2"}})
+    sec_credentials:std.Constant(data={"SJ":{"username":"user5","password":"pass5"}})
     controlpath: std.Constant(data=control_uri)    
     controluri: io.FileReader()
     deploy: calvin.CalvinDeployerA()

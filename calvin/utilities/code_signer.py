@@ -59,7 +59,7 @@ class CS():
         self.password_file = os.path.join(self.private, "cs_password")
         self.certificate = os.path.join(self.cs_dir, "cscert.pem")
 
-        _log.debu("CS init, organization={}, commonName={}".format(organization, commonName))
+        _log.debug("CS init, organization={}, commonName={}".format(organization, commonName))
         print"CS init, organization="+ organization+", commonName="+commonName
         exist = os.path.isdir(self.cs_dir)
         if not exist and readonly:
