@@ -99,7 +99,7 @@
             "authorization": {
                 "procedure": "local",
                 "policy_storage_path": "/home/ehakeng/eric-calvin-base/calvin/examples/security_train_demo/security/policies",
-		"accept_external_requests": "True"
+		        "accept_external_requests": "True"
             }
         }
     }

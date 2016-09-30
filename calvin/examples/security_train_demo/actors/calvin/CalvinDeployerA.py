@@ -17,6 +17,8 @@
 from calvin.actor.actor import Actor, ActionResult, manage, condition, guard
 from calvin.runtime.north.calvin_token import ExceptionToken
 
+import json
+
 class CalvinDeployerA(Actor):
 
     """
@@ -27,6 +29,7 @@ class CalvinDeployerA(Actor):
       name: deployed apps name as string
       script : Script as text
       deploy_info: deploy_info as text or None
+      sec_credentials: username and password or None
       status: Connected from HTTPPost Actor
       header: Connected from HTTPPost Actor
       data : Connected from HTTPPost Actor
@@ -53,11 +56,14 @@ class CalvinDeployerA(Actor):
         # Ignore any exceptions
         return ActionResult()
 
-    @condition(['name', 'script', 'deploy_info'], ['URL', 'data', 'params', 'header'])
-    @guard(lambda self, name, script, deploy_info: self.control_uri is not None)
-    def deploy(self, name, script, deploy_info):
-	print "name:%s     script:%s" % (name, script)
-        body = self['json'].dumps({'script': script, 'name': name, 'deploy_info':deploy_info, 'check': False})
+    @condition(['name', 'script', 'deploy_info','sec_credentials'], ['URL', 'data', 'params', 'header'])
+    @guard(lambda self, name, script, deploy_info, sec_credentials: self.control_uri is not None)
+    def deploy(self, name, script, deploy_info, sec_credentials):
+        print "name:%s     script:%s    sec_credentials:%s "% (name, script, sec_credentials)
+#        body = self['json'].dumps({'script': script, 'name': name, 'deploy_info':deploy_info, 'check': False})
+        body = self['json'].dumps({'script': script, 'name': name,
+                                    'deploy_info':deploy_info, 'check': False, 
+                                    'sec_credentials':sec_credentials})
         return ActionResult(production=(self.control_uri + "/deploy", body, {}, {}))
 
     @condition(['status', 'header', 'data'], ['app_info'])

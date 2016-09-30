@@ -19,6 +19,7 @@ define APPNAME = "train_demo"
 ### Components ###
 # Components
 component CalvinDeployer(control_uri) name, script, deploy_info -> app_info {
+    sec_credentials:std.Constant(data= {"SJ":{"username":"user2","password":"pass2"}})
     controlpath: std.Constant(data=control_uri)    
     controluri: io.FileReader()
     deploy: calvin.CalvinDeployerA()
@@ -27,6 +28,7 @@ component CalvinDeployer(control_uri) name, script, deploy_info -> app_info {
     dbg1: io.Print()
     dbg2: io.Print()
 
+    sec_credentials.token > deploy.sec_credentials
     .name > deploy.name
     .script > deploy.script
     .deploy_info > deploy.deploy_info
@@ -128,13 +130,12 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
 
 
 
-### Structure ###
+### Debug ###
 dbgLund: io.Print()
 dbgStockholm: io.Print()
 dbgDeploy: io.Print()
 dbgMigrate: io.Print()
 
-### Display ###
 #RFID stuff
 nothing : std.Void()
 dataConst: std.Constant(data="data", n=-1)

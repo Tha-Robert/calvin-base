@@ -258,9 +258,14 @@ class Security(object):
         # Can't use id for application since it is not assigned when the policy is checked.
         _log.debug("Security: check_security_policy")
         if self.sec_conf:
-            signer = {element_type + "_signer": signer}
-            self.get_authorization_decision(callback, actor_id, requires, signer, decision_from_migration)
-            return
+            _log.debug("Englund: sec_conf={}".format(self.sec_conf))
+            if self.sec_conf.has_key('authorization'):
+                _log.debug("Englund: Authorization enabled")
+                signer = {element_type + "_signer": signer}
+                self.get_authorization_decision(callback, actor_id, requires, signer, decision_from_migration)
+                return
+            else:
+                _log.debug("Englund: Authorization disabled")
         # No security config, so access control is disabled.
         return callback(access_decision=True)
 
