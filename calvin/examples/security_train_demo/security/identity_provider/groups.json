@@ -1,19 +1,21 @@
 {
     "train_driver": {
-	"sensors":["InfoBoard","Camera","Environment"]
+        "organization":["SJ"],
+        "sensors":["environmental","camera_handler","display"]
     },
     "conductor": { 
-	"sensors":["camera","environment"]
+        "organization":["SJ"],
+        "sensors":["environmental","camera","display"]
     },
     "passenger": { 
-        "sensors": ["environment"]
-
+        "organization":["SJ"],
+        "sensors":["environmental","camera","display"]
     },
     "Lund":{
-        "locality":"Lund"
+        "locality":["Lund"]
     },
     "Stockholm":{
-        "locality":"Stockholm"
+        "locality":["Stockholm"]
     }
 
 }

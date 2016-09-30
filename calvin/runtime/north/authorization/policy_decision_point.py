@@ -102,6 +102,7 @@ class PolicyDecisionPoint(object):
         # Wait for PolicyInformationPoint to be ready, then continue with authorization.
 
     def _authorize_cont(self, request, pip, callback):
+        _log.debug("_authorize_cont")
         if "resource" in request and "node_id" in request["resource"]:
             try:
                 node_id = request["resource"]["node_id"]
@@ -123,6 +124,7 @@ class PolicyDecisionPoint(object):
         if requires is not None and len(requires) > 1:
             decisions = []
             obligations = []
+            _log.debug("Create one request for each requirement")
             # Create one request for each requirement.
             for req in requires:
                 requirement_request = request.copy()
@@ -200,15 +202,20 @@ class PolicyDecisionPoint(object):
             ]
         }
         """
+        _log.debug("combined_policy_decision")
         policy_decisions = []
         policy_obligations = []
         try:
             # Get policies from PRP (Policy Retrieval Point).
             policies = self.node.authorization.prp.get_policies(self.config["policy_name_pattern"])
+            _log.debug("Hakan: after fetch policies from PRP")
             for policy_id in policies: 
+                _log.debug("Hakan: before target_matches")
                 policy = policies[policy_id]
                 # Check if policy target matches (policy without target matches everything).
+                _log.debug("Hakan: before target_matches")
                 if "target" not in policy or self.target_matches(policy["target"], request, pip):
+                    _log.debug("Hakan: found a target or no target in rule")
                     # Get a policy decision if target matches.
                     decision, obligations = self.policy_decision(policy, request, pip)
                     if ((decision == "permit" and not obligations and self.config["policy_combining"] == "permit_overrides") or 
@@ -227,7 +234,8 @@ class PolicyDecisionPoint(object):
                     return ("deny", [])
             else:
                 return ("not_applicable", [])
-        except Exception:
+        except Exception as e:
+            _log.debug("Failed to fetch policies from PRP, error={}".format(e))
             return ("indeterminate", [])
 
     def create_response(self, decision, obligations):
@@ -240,6 +248,7 @@ class PolicyDecisionPoint(object):
 
     def target_matches(self, target, request, pip):
         """Return True if policy target matches request, else False."""
+        _log.debug("target_matches")
         for attribute_type in target:
             for attribute in target[attribute_type]:
                 try:
@@ -273,6 +282,7 @@ class PolicyDecisionPoint(object):
 
     def policy_decision(self, policy, request, pip):
         """Use policy to return (access decision, obligations) for the request."""
+        _log.debug("policy_decision")
         rule_decisions = []
         rule_obligations = []
         for rule in policy["rules"]:
@@ -301,6 +311,7 @@ class PolicyDecisionPoint(object):
 
     def rule_decision(self, rule, request, pip):
         """Return (rule decision, obligations) for the request"""
+        _log.debug("rule_decision, rule={}, request={}".format(rule,request))
         # Check condition if it exists.
         if "condition" in rule:
             try:
@@ -329,6 +340,7 @@ class PolicyDecisionPoint(object):
         If a function argument starts with 'attr', e.g. 'attr:resource:address.country',
         the value is retrieved from the request or the Policy Information Point.
         """
+        _log.debug("evaluate_function:func={},\nargs={},\nrequest={}".format(func, args, request))
         args = args[:]  # Copy list to prevent editing original list.
 
         # Check each function argument
@@ -358,6 +370,7 @@ class PolicyDecisionPoint(object):
             # If the lists contain many values, only one of the values need to match.
             # Regular expressions (has to be args[1]) are allowed for strings in policies
             # (re.match checks for a match at the beginning of the string, $ marks the end of the string).
+            _log.debug("equal, args[0]={}, args[1]={}".format(args[0],args[1]))
             return any([re.match(r+'$', x) for r in args[1] for x in args[0]])
         elif func == "not_equal":
             # If the lists contain many values, only one of the values need to match.

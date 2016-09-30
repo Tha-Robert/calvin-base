@@ -117,12 +117,15 @@ class AuthenticationDecisionPoint(object):
                             if key == "groups" and groups_db:
                                 for group_key in user['attributes']['groups']:
                                     for group_attribute in groups_db[group_key]:
-                                        if not group_attribute in subject_attributes:
-                                            # If there is no key, create array and add first value
-                                            subject_attributes.setdefault(group_attribute, []).append(groups_db[group_key][group_attribute])
-                                        elif not groups_db[group_key][group_attribute] in subject_attributes[group_attribute]:
-                                            # List exists, make sure we don't add same value several times
-                                            subject_attributes[group_attribute].append(groups_db[group_key][group_attribute])
+                                        _log.debug("Englund:group_attribute={}".format(group_attribute))
+                                        for value in groups_db[group_key][group_attribute]:
+                                            _log.debug("Englund:value={}".format(value))
+                                            if not group_attribute in subject_attributes:
+                                                # If there is no key, create array and add first value
+                                                subject_attributes.setdefault(group_attribute,[]).append(value)
+                                            elif not groups_db[group_key][group_attribute] in subject_attributes[group_attribute]:
+                                                # List exists, make sure we don't add same value several times
+                                                subject_attributes[group_attribute].append(value)
                             else:
                                 if not user['attributes'][key] in subject_attributes:
                                     # If there is no key, create array and add first value

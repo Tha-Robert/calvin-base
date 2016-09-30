@@ -4,7 +4,7 @@
     "rule_combining": "permit_overrides", 
     "target":{
         "action":{
-            "requires":["calvinsys.sensors.environmental"]
+            "requires":["runtime","calvinsys.events.timer","calvinsys.media.image","calvinsys.native.python-base64","calvinsys.native.python-json","calvinsys.network.httpclienthandler","calvinsys.io.filehandler"]
         }
     },
     "rules": [
@@ -17,7 +17,7 @@
                 "attributes":[
                     {
                         "function":"equal",
-                        "sensors":["attr:subject:sensors",["environmental"]]
+                        "sensors":["attr:subject:organization",["SJ"]]
                     }
                 ]
             }
