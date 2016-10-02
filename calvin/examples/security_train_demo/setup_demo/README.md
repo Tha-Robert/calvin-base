@@ -108,7 +108,7 @@ Access in browswer `http://192.168.1.131:8000`
 
 #deploy script:
  
-`cscontrol http://192.168.1.133:5001 deploy --credentials '{"SJ":{"username":"user1","password":"pass1"}}' --reqs test1.deployjson test1.calvin `
+`cscontrol http://192.168.1.138:5001 deploy --credentials '{"SJ":{"username":"user1","password":"pass1"}}' --reqs test1.deployjson test1.calvin `
 
 
 #Policy Administration Point

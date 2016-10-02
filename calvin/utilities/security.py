@@ -470,6 +470,7 @@ class Security(object):
     def verify_signature_get_files(filename, skip_file=False):
         """Get files needed for signature verification of the specified file."""
         # Get the data
+        _log.debug("Englund: verify_signature_get_files associated with filename={}".format(filename))
         sign_filenames = filename + ".sign.*"
         sign_content = {}
         file_content = ""

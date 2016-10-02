@@ -1,5 +1,4 @@
 {
-    "id": "application_signer",
     "description": "Allow unsigned applications for anyone with a SJ user account",
     "rule_combining": "permit_overrides", 
     "target": {
@@ -9,7 +8,7 @@
     }, 
     "rules": [
         {
-            "id": "application_signer_rule1",
+            "id": "application_signer_rule",
             "description":"Permit if policy target matches", 
             "effect": "permit",
             "condition":{

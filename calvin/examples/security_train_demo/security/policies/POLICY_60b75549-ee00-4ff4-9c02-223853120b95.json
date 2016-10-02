@@ -1,17 +1,17 @@
 {
-    "description": "Acess to Sensehats are given to users with attribute environmental. Actors signed by Adafruit allowed.",
+    "description": "Acess to Cameras on stations are given to users with attribute camerahandler. Actors signed by Ericsson allowed.",
     "rule_combining": "permit_overrides", 
     "target":{
         "subject":{
-            "actor_signer":["AdafruitCS"]
+            "actor_signer":["AdafruiCS"]
         },
         "action":{
-            "requires":["calvinsys.sensors.environmental"]
+            "requires":["calvinsys.media.camerahandler"]
         }
     },
     "rules": [
         {
-            "id": "environmental rule",
+            "id": "camera rule",
             "description":"Permit if policy target matches", 
             "effect": "permit",
             "condition":{
@@ -19,7 +19,7 @@
                 "attributes":[
                     {
                         "function":"equal",
-                        "attributes":["attr:subject:sensors",["environmental"]]
+                        "attributes":["attr:subject:sensors",["camera"]]
                     }
                 ]
             }

@@ -1,17 +1,17 @@
 {
-    "description": "Acess to Sensehats are given to users with attribute environmental. Actors signed by Adafruit allowed.",
+    "description": "Access to RFID readers are give to everyone with attribute rfid. Only actors signed by Adafruit allowed ",
     "rule_combining": "permit_overrides", 
     "target":{
         "subject":{
             "actor_signer":["AdafruitCS"]
         },
         "action":{
-            "requires":["calvinsys.sensors.environmental"]
+            "requires":["calvinsys.media.rfid"]
         }
     },
     "rules": [
         {
-            "id": "environmental rule",
+            "id": "rfid rule",
             "description":"Permit if policy target matches", 
             "effect": "permit",
             "condition":{
@@ -19,7 +19,7 @@
                 "attributes":[
                     {
                         "function":"equal",
-                        "attributes":["attr:subject:sensors",["environmental"]]
+                        "attributes":["attr:subject:sensors",["rfid"]]
                     }
                 ]
             }

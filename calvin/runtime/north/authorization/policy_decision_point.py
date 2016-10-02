@@ -250,9 +250,12 @@ class PolicyDecisionPoint(object):
         """Return True if policy target matches request, else False."""
         _log.debug("target_matches")
         for attribute_type in target:
+            _log.debug("Englund:attribute_type in target={}".format(attribute_type))
             for attribute in target[attribute_type]:
+                _log.debug("Englund:attribute  in target[attribute_type]={}".format(attribute))
                 try:
                     request_value = request[attribute_type][attribute]
+                    _log.debug("Englund:request={}\nrequest_value={}".format(request, request_value))
                 except KeyError:
                     try:
                         # Try to fetch missing attribute from Policy Information Point (PIP).
@@ -278,6 +281,7 @@ class PolicyDecisionPoint(object):
                         _log.debug("PolicyDecisionPoint: Not matching: %s %s %s" % (attribute_type, attribute, policy_value))
                         return False
         # True is returned if every attribute in the policy target matches the corresponding request attribute.
+        _log.debug("Englund: this policy returns True")
         return True
 
     def policy_decision(self, policy, request, pip):
@@ -288,6 +292,7 @@ class PolicyDecisionPoint(object):
         for rule in policy["rules"]:
             # Check if rule target matches (rule without target matches everything).
             if "target" not in rule or self.target_matches(rule["target"], request, pip):
+                _log.debug("Englund: policy_decision, no target in rule or rule_target matches")
                 # Get a rule decision if target matches.
                 decision, obligations = self.rule_decision(rule, request, pip)
                 if ((decision == "permit" and not obligations and policy["rule_combining"] == "permit_overrides") or 
@@ -311,9 +316,10 @@ class PolicyDecisionPoint(object):
 
     def rule_decision(self, rule, request, pip):
         """Return (rule decision, obligations) for the request"""
-        _log.debug("rule_decision, rule={}, request={}".format(rule,request))
+        _log.debug("rule_decision: \nrule={}, \nrequest={}".format(rule,request))
         # Check condition if it exists.
         if "condition" in rule:
+            _log.debug("Englund: condition in rule")
             try:
                 args = []
                 for attribute in rule["condition"]["attributes"]:
@@ -327,9 +333,11 @@ class PolicyDecisionPoint(object):
                     return (rule["effect"], rule.get("obligations", []))
                 else:
                     return ("not_applicable", [])
-            except Exception:
+            except Exception as e:
+                _log.error("rule condition evalutation raise Exception, \ne={}".format(e))
                 return ("indeterminate", [])
         else:
+            _log.debug("Englund: no condition in rule")
             # If no condition in the rule, return the rule effect directly.
             return (rule["effect"], rule.get("obligations", []))
         

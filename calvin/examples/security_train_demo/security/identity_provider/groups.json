@@ -1,15 +1,15 @@
 {
     "train_driver": {
         "organization":["SJ"],
-        "sensors":["environmental","camera_handler","display"]
+        "sensors":["environmental","rfid","camerahandler","infoboard","servomotor"]
     },
     "conductor": { 
         "organization":["SJ"],
-        "sensors":["environmental","camera","display"]
+        "sensors":["environmental","rfid","camerahandler"]
     },
     "passenger": { 
         "organization":["SJ"],
-        "sensors":["environmental","camera","display"]
+        "sensors":["environmental","rfid"]
     },
     "Lund":{
         "locality":["Lund"]
