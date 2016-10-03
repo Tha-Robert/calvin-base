@@ -6,7 +6,7 @@
             "actor_signer":["AdafruitCS"]
         },
         "action":{
-            "requires":["calvinsys.io.display"]
+            "requires":["runtime","calvinsys.io.display"]
         }
     },
     "rules": [
@@ -17,6 +17,10 @@
             "condition":{
                 "function":"and",
                 "attributes":[
+                    {
+                        "function":"equal",
+                        "attributes":["attr:subject:sensors",["infoboard"]]
+                    },
                     {
                         "function":"equal",
                         "attributes":["attr:subject:sensors",["infoboard"]]

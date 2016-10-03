@@ -6,7 +6,7 @@
             "actor_signer":["AdafruitCS"]
         },
         "action":{
-            "requires":["calvinsys.sensors.rfid"]
+            "requires":["runtime","calvinsys.sensors.rfid","calvinsys.events.timer"]
         }
     },
     "rules": [

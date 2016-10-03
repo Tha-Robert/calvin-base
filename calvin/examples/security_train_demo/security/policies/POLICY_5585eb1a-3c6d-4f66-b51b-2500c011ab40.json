@@ -6,7 +6,7 @@
             "actor_signer":["AdafruitCS"]
         },
         "action":{
-            "requires":["calvinsys.sensors.environmental"]
+            "requires":["runtime","calvinsys.sensors.environmental","calvinsys.io.display"]
         }
     },
     "rules": [

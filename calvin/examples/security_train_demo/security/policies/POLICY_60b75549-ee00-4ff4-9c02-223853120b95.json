@@ -3,10 +3,10 @@
     "rule_combining": "permit_overrides", 
     "target":{
         "subject":{
-            "actor_signer":["AdafruiCS"]
+            "actor_signer":["AdafruitCS"]
         },
         "action":{
-            "requires":["calvinsys.media.camerahandler"]
+            "requires":["runtime","calvinsys.media.camerahandler"]
         }
     },
     "rules": [
@@ -19,7 +19,7 @@
                 "attributes":[
                     {
                         "function":"equal",
-                        "attributes":["attr:subject:sensors",["camera"]]
+                        "attributes":["attr:subject:sensors",["camerahandler"]]
                     }
                 ]
             }

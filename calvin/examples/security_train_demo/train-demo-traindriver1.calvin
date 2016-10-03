@@ -19,7 +19,7 @@ define APPNAME = "train_demo_conductor1"
 ### Components ###
 # Components
 component CalvinDeployer(control_uri) name, script, deploy_info -> app_info {
-    sec_credentials:std.Constant(data={"SJ":{"username":"user2","password":"pass2"}})
+    sec_credentials:std.Constant(data={"SJ":{"username":"user4","password":"pass4"}})
     controlpath: std.Constant(data=control_uri)    
     controluri: io.FileReader()
     deploy: calvin.CalvinDeployerA()

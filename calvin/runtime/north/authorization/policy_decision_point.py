@@ -124,20 +124,24 @@ class PolicyDecisionPoint(object):
         if requires is not None and len(requires) > 1:
             decisions = []
             obligations = []
-            _log.debug("Create one request for each requirement")
+            _log.debug("Create one request for each requirement, full requirement={}".format(requires))
             # Create one request for each requirement.
             for req in requires:
                 requirement_request = request.copy()
                 requirement_request["action"]["requires"] = [req]
                 policy_decision, policy_obligations = self.combined_policy_decision(requirement_request, pip)
+                _log.debug("Hakan: in _authorize_cont,\npolicy_decision={},\nreq={}".format(policy_decision,req))
                 decisions.append(policy_decision)
                 if policy_obligations:
                     obligations.append(policy_obligations)
+            _log.debug("Hakan: in _authorize_cont, \ndecisions={},\nrequest={}".format(decisions,request))
             # If the policy decisions for all requirements are the same, respond with that decision.
             if all(x == decisions[0] for x in decisions):
+                _log.debug("Hakan: all decision are the same")
                 callback(authz_response=self.create_response(decisions[0], obligations))
                 return
             else:
+                _log.debug("Hakan: all decision are not the same")
                 callback(authz_response=self.create_response("indeterminate", []))
                 return
         callback(authz_response=self.create_response(*self.combined_policy_decision(request, pip)))
@@ -210,7 +214,6 @@ class PolicyDecisionPoint(object):
             policies = self.node.authorization.prp.get_policies(self.config["policy_name_pattern"])
             _log.debug("Hakan: after fetch policies from PRP")
             for policy_id in policies: 
-                _log.debug("Hakan: before target_matches")
                 policy = policies[policy_id]
                 # Check if policy target matches (policy without target matches everything).
                 _log.debug("Hakan: before target_matches")
@@ -218,8 +221,10 @@ class PolicyDecisionPoint(object):
                     _log.debug("Hakan: found a target or no target in rule")
                     # Get a policy decision if target matches.
                     decision, obligations = self.policy_decision(policy, request, pip)
+                    _log.debug("Hakan: after_policy_decision in combined_policy_decision, decision={}".format(decision))
                     if ((decision == "permit" and not obligations and self.config["policy_combining"] == "permit_overrides") or 
                       (decision == "deny" and self.config["policy_combining"] == "deny_overrides")):
+                        _log.debug("Hakan: combined policy decision, permit and no obligations, or deny and deny overrides")
                         # Stop checking further rules.
                         # If "permit" with obligations, continue since "permit" without obligations may be found.
                         return (decision, [])
@@ -248,7 +253,7 @@ class PolicyDecisionPoint(object):
 
     def target_matches(self, target, request, pip):
         """Return True if policy target matches request, else False."""
-        _log.debug("target_matches")
+        _log.debug("in target_matches")
         for attribute_type in target:
             _log.debug("Englund:attribute_type in target={}".format(attribute_type))
             for attribute in target[attribute_type]:
@@ -274,14 +279,14 @@ class PolicyDecisionPoint(object):
                     # Regular expressions are allowed for strings in policies 
                     # (re.match checks for a match at the beginning of the string, $ marks the end of the string).
                     if not any([re.match(r+'$', x) for r in policy_value for x in request_value]):
-                        _log.debug("PolicyDecisionPoint: Not matching: %s %s %s" % (attribute_type, attribute, policy_value))
+                        _log.debug("PolicyDecisionPoint: Target is not matching: %s %s %s" % (attribute_type, attribute, policy_value))
                         return False
                 except TypeError:  # If the value is not a string
                     if set(request_value).isdisjoint(policy_value):
-                        _log.debug("PolicyDecisionPoint: Not matching: %s %s %s" % (attribute_type, attribute, policy_value))
+                        _log.debug("PolicyDecisionPoint: Target is not matching: %s %s %s" % (attribute_type, attribute, policy_value))
                         return False
         # True is returned if every attribute in the policy target matches the corresponding request attribute.
-        _log.debug("Englund: this policy returns True")
+        _log.debug("Englund: this policy has a matching target,\ntarget={},\nrequest={}".format(target,request))
         return True
 
     def policy_decision(self, policy, request, pip):
@@ -295,8 +300,10 @@ class PolicyDecisionPoint(object):
                 _log.debug("Englund: policy_decision, no target in rule or rule_target matches")
                 # Get a rule decision if target matches.
                 decision, obligations = self.rule_decision(rule, request, pip)
+                _log.debug("Englund: after rule_decision, decision={}".format(decision))
                 if ((decision == "permit" and not obligations and policy["rule_combining"] == "permit_overrides") or 
                   (decision == "deny" and policy["rule_combining"] == "deny_overrides")):
+                    _log.debug("Englund: rule permit and not obligations and permit_overrides or deny and deny overrides")
                     # Stop checking further rules.
                     # If "permit" with obligations, continue since "permit" without obligations may be found.
                     return (decision, [])
@@ -328,10 +335,14 @@ class PolicyDecisionPoint(object):
                                     attribute["attributes"], request, pip))
                     else:
                         args.append(attribute)
+                _log.debug("Englund, before rule_satisfied")
                 rule_satisfied = self.evaluate_function(rule["condition"]["function"], args, request, pip)
+                _log.debug("Englund, after rule_satisfied, rule_satisfied={}".format(rule_satisfied))
                 if rule_satisfied:
+                    _log.debug("Englund, rule_satisfied,rule[effect]={}".format(rule["effect"]))
                     return (rule["effect"], rule.get("obligations", []))
                 else:
+                    _log.debug("Englund, rule_satisfied not satisfied")
                     return ("not_applicable", [])
             except Exception as e:
                 _log.error("rule condition evalutation raise Exception, \ne={}".format(e))
@@ -379,7 +390,9 @@ class PolicyDecisionPoint(object):
             # Regular expressions (has to be args[1]) are allowed for strings in policies
             # (re.match checks for a match at the beginning of the string, $ marks the end of the string).
             _log.debug("equal, args[0]={}, args[1]={}".format(args[0],args[1]))
-            return any([re.match(r+'$', x) for r in args[1] for x in args[0]])
+            result = any([re.match(r+'$', x) for r in args[1] for x in args[0]])
+            _log.debug("Englund: evaluate_function result={}".format(result))
+            return result
         elif func == "not_equal":
             # If the lists contain many values, only one of the values need to match.
             # Regular expressions (has to be args[1]) are allowed for strings in policies
