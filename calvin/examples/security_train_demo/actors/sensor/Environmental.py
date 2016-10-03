@@ -39,9 +39,7 @@ class Environmental(Actor):
 
     @condition(action_input=["trigger"], action_output=["data"])
     def get_data(self, input):
-        data = "T:%s H:%s P:%s" % (int(self.sensor.get_temperature()),
-                                   int(self.sensor.get_humidity()),
-                                   int(self.sensor.get_pressure()))
+        data = " %s C " % (int(self.sensor.get_temperature()),)
         return ActionResult(production=(data, ))
 
     action_priority = (get_data, )

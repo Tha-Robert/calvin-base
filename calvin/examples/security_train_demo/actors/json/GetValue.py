@@ -59,7 +59,7 @@ class GetValue(Actor):
                     raise Exception()
                 res = res[key]
         except Exception as e:
-            res = ExceptionToken()
+            res = 53072129
         return ActionResult(production=(res, ))
 
     action_priority = (get_value, )
