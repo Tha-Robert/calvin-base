@@ -7,6 +7,9 @@
         },
         "action":{
             "requires":["runtime","calvinsys.sensors.environmental","calvinsys.io.display"]
+        },
+        "resource":{
+            "node_name.name":["Lund_Camera_Sensehat","Sthlm_Camera_Sensehat"]
         }
     },
     "rules": [

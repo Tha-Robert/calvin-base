@@ -6,7 +6,7 @@
             "actor_signer":["EricssonCS"]
         },
         "action":{
-            "requires":["runtime","calvinsys.events.timer","calvinsys.media.image","calvinsys.native.python-base64","calvinsys.native.python-json","calvinsys.network.httpclienthandler","calvinsys.io.filehandler"]
+            "requires":["runtime","calvinsys.events.timer","calvinsys.media.image","calvinsys.native.python-base64","calvinsys.native.python-json","calvinsys.network.httpclienthandler","calvinsys.io.filehandler","calvinsys.io.servomotor"]
         }
     },
     "rules": [
