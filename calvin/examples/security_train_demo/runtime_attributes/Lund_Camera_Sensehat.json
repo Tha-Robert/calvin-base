@@ -2,7 +2,8 @@
 	"indexed_public": {
 		"node_name": {
 			"organization": "SJ", 
-			"name": "Lund_Camera_Sensehat"
+			"name": "Lund_Camera_Sensehat",
+			"purpose": "environmental"
 		}
 	}
 }
