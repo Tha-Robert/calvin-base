@@ -82,14 +82,14 @@ deploy_info: std.Constant(data=
 {
     "requirements":
     {
-        "cameraTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]},"type":"+"}],
-        "camera":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]},"type":"+"}],
+        "cameraTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]},"type":"+"}],
+        "camera":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]},"type":"+"}],
         "cameraDisplay":[{"op": "node_attr_match", "kwargs":{"index":["node_name", {"organization":"SJ","name": "ELX"}]},"type":"+"}],
         "infoBoardTrigger":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_InfoBoard"}]},"type":"+"}],
         "infoBoard":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_InfoBoard"}]},"type":"+"}],
-        "sensorTimer":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]},"type":"+"}],
-        "sensor":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]},"type":"+"}],
-        "sensorDisplay":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","name":"ELX","purpose":"environmental"}]},"type":"+"}]
+        "sensorTimer":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]},"type":"+"}],
+        "sensor":	[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]},"type":"+"}],
+        "sensorDisplay":[{"op": "node_attr_match", "kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]},"type":"+"}]
     }
 })
 
@@ -104,26 +104,26 @@ migrate: CalvinMigrater(control_uri=CONTROL_URI, deploy_info=
    {
         "requirements":
         {
-	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]}, "type": "+"}],
-	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]}, "type": "+"}],
+	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
+	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
 	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_InfoBoard"}]}, "type": "+"}],
 	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_InfoBoard"}]}, "type": "+"}],
-	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]}, "type": "+"}],
-	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","name":"ELX","purpose":"environmental"}]}, "type": "+"}],
-            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat","purpose":"environmental"}]}, "type": "+"}]
+	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
+	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]}, "type": "+"}],
+            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Lund_Camera_Sensehat"}]}, "type": "+"}]
         }
     },
     "stationStockholm":
     {
         "requirements":
         {
-	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat","purpose":"environmental"}]}, "type": "+"}],
-	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat","purpose":"environmental"}]}, "type": "+"}],
+	    "cameraTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
+	    "camera":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
 	    "infoBoardTrigger":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_InfoBoard"}]}, "type": "+"}],
 	    "infoBoard":    [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_InfoBoard"}]}, "type": "+"}],
 	    "sensorTimer":  [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
-	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat","name":"ELX","purpose":"environmental"}]}, "type": "+"}],
-            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat","purpose":"environmental"}]}, "type": "+"}]
+	    "sensorDisplay":[{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}],
+            "sensor":       [{"op": "node_attr_match","kwargs": {"index": ["node_name", {"organization":"SJ","name": "Sthlm_Camera_Sensehat"}]}, "type": "+"}]
         }
     }
 })
